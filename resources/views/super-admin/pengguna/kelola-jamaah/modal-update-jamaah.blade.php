@@ -21,7 +21,8 @@
                             <input 
                                 type="text" 
                                 name="ktp" 
-                                value="{{ old('ktp') }}" 
+                                value="{{ old('ktp', $item->ktp) }}" 
+                                readonly
                                 class="form-control">
                             @error('ktp')
                                 <small class="text-danger">{{ $message }}</small>
@@ -34,7 +35,7 @@
                                 type="email" 
                                 name="email" 
                                 placeholder="Tidak Wajib"
-                                value="{{ old('email') }}" 
+                                value="{{ old('email', $item->email) }}" 
                                 class="form-control" 
                                 id="exampleInputEmail1">
                             @error('email')
@@ -50,7 +51,7 @@
                             <input 
                                 type="text" 
                                 name="nama_lengkap" 
-                                value="{{ old('nama_lengkap') }}" 
+                                value="{{ old('nama_lengkap', $item->nama_lengkap) }}" 
                                 class="form-control" 
                                 id="nama_lengkap">
                             @error('nama_lengkap')
@@ -64,7 +65,7 @@
                             <input 
                                 type="text" 
                                 name="nama_ayah_kandung" 
-                                value="{{ old('nama_ayah_kandung') }}" 
+                                value="{{ old('nama_ayah_kandung', $item->nama_ayah_kandung) }}" 
                                 class="form-control" 
                                 id="nama_ayah_kandung">
                             @error('nama_ayah_kandung')
@@ -80,7 +81,7 @@
                             <input 
                                 type="text" 
                                 name="tempat_lahir" 
-                                value="{{ old('tempat_lahir') }}" 
+                                value="{{ old('tempat_lahir', $item->tempat_lahir) }}" 
                                 class="form-control" 
                                 id="tempat_lahir">
                             @error('tempat_lahir')
@@ -109,7 +110,7 @@
                             <input 
                                 type="date" 
                                 name="tanggal_lahir" 
-                                value="{{ old('tanggal_lahir') }}" 
+                                value="{{ old('tanggal_lahir', $item->tanggal_lahir) }}" 
                                 class="form-control" 
                                 id="tanggal_lahir">
                             @error('tanggal_lahir')
@@ -122,7 +123,7 @@
                             <input 
                                 type="number" 
                                 name="umur" 
-                                value="{{ old('umur') }}" 
+                                value="{{ old('umur', $item->umur) }}" 
                                 class="form-control" 
                                 id="umur" 
                                 readonly>
@@ -175,7 +176,7 @@
                                 name="tinggi"
                                 min="1" 
                                 placeholder="... CM"
-                                value="{{ old('tinggi') }}" 
+                                value="{{ old('tinggi', $item->tinggi) }}" 
                                 class="form-control" 
                                 id="tinggi">
                             @error('tinggi')
@@ -191,7 +192,7 @@
                                 name="berat" 
                                 min="1"
                                 placeholder="... KG"
-                                value="{{ old('berat') }}" 
+                                value="{{ old('berat', $item->berat) }}" 
                                 class="form-control" 
                                 id="berat">
                             @error('berat')
@@ -207,7 +208,7 @@
                             <input 
                                 type="text" 
                                 name="muka"
-                                value="{{ old('muka') }}" 
+                                value="{{ old('muka', $item->muka) }}" 
                                 class="form-control" 
                                 id="muka">
                             @error('muka')
@@ -221,7 +222,7 @@
                             <input 
                                 type="text" 
                                 name="hidung" 
-                                value="{{ old('hidung') }}" 
+                                value="{{ old('hidung', $item->hidung) }}" 
                                 class="form-control" 
                                 id="hidung">
                             @error('hidung')
@@ -237,7 +238,7 @@
                             <input 
                                 type="text" 
                                 name="alis"
-                                value="{{ old('alis') }}" 
+                                value="{{ old('alis', $item->alis) }}" 
                                 class="form-control" 
                                 id="alis">
                             @error('alis')
@@ -251,7 +252,7 @@
                             <input 
                                 type="text" 
                                 name="rambut" 
-                                value="{{ old('rambut') }}" 
+                                value="{{ old('rambut', $item->rambut) }}" 
                                 class="form-control" 
                                 id="rambut">
                             @error('rambut')
@@ -267,7 +268,7 @@
                             <input 
                                 type="text" 
                                 name="penyakit"
-                                value="{{ old('penyakit') }}" 
+                                value="{{ old('penyakit', $item->penyakit) }}" 
                                 class="form-control" 
                                 id="penyakit">
                             @error('penyakit')
@@ -315,7 +316,7 @@
                             <input 
                                 type="text" 
                                 name="nama_jalan" 
-                                value="{{ old('nama_jalan') }}" 
+                                value="{{ old('nama_jalan', $item->nama_jalan) }}" 
                                 class="form-control" 
                                 id="nama_jalan">
                             @error('nama_jalan')
@@ -329,7 +330,7 @@
                             <input 
                                 type="text" 
                                 name="desa" 
-                                value="{{ old('desa') }}" 
+                                value="{{ old('desa', $item->desa) }}" 
                                 class="form-control" 
                                 id="desa">
                             @error('desa')
@@ -345,7 +346,7 @@
                             <input 
                                 type="text" 
                                 name="kecamatan" 
-                                value="{{ old('kecamatan') }}" 
+                                value="{{ old('kecamatan', $item->kecamatan) }}" 
                                 class="form-control" 
                                 id="kecamatan">
                             @error('kecamatan')
@@ -359,7 +360,7 @@
                             <input 
                                 type="text" 
                                 name="kabupaten" 
-                                value="{{ old('kabupaten') }}" 
+                                value="{{ old('kabupaten', $item->kabupaten) }}" 
                                 class="form-control" 
                                 id="kabupaten">
                             @error('kabupaten')
@@ -375,7 +376,7 @@
                             <input 
                                 type="text" 
                                 name="provinsi" 
-                                value="{{ old('provinsi') }}" 
+                                value="{{ old('provinsi', $item->provinsi) }}" 
                                 class="form-control" 
                                 id="provinsi">
                             @error('provinsi')
@@ -389,7 +390,7 @@
                             <input 
                                 type="number" 
                                 name="kode_pos" 
-                                value="{{ old('kode_pos') }}" 
+                                value="{{ old('kode_pos', $item->kode_pos) }}" 
                                 class="form-control" 
                                 id="kode_pos">
                             @error('kode_pos')
@@ -405,7 +406,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp" 
-                                value="{{ old('no_telp') }}" 
+                                value="{{ old('no_telp', $item->no_telp) }}" 
                                 class="form-control" 
                                 id="no_telp">
                             @error('no_telp')
@@ -417,15 +418,15 @@
                             <label for="pendidikan_terahir">Pilih Pendidikan Terahir <span class="text-muted font-italic text-gray-500">(Tidak Wajib)</span></label>
                             <select class="form-control" name="pendidikan_terahir" id="pendidikan_terahir">
                                 <option value="">-- Pilih Pendidikan Terahir --</option>
-                                <option value="SD" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'SD' ? 'selected' : '' }}>SD</option>
-                                <option value="SLTP" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
-                                <option value="SMU" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'SMU' ? 'selected' : '' }}>SMU</option>
-                                <option value="D1/D2" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
-                                <option value="SM/D3" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
-                                <option value="S1" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
-                                <option value="S2" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
-                                <option value="S3" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
-                                <option value="PNS" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
+                                <option value="SD" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SD' ? 'selected' : '' }}>SD</option>
+                                <option value="SLTP" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
+                                <option value="SMU" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SMU' ? 'selected' : '' }}>SMU</option>
+                                <option value="D1/D2" {{ old('pekerjaan', $item->pendidikan ?? '') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
+                                <option value="SM/D3" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
+                                <option value="S1" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
+                                <option value="S2" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
+                                <option value="S3" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
+                                <option value="PNS" {{ old('pekerjaan', $item->pendidikan ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
 
                             </select>
                             @error('pekerjaan')
@@ -463,7 +464,7 @@
                     <!-- Input untuk pekerjaan lainnya -->
                     <div class="form-group" id="pekerjaanLainnyaContainer" style="display: none;">
                         <label for="pekerjaan_lainnya">Masukkan Pekerjaan Lainnya</label>
-                        <input type="text" class="form-control" name="pekerjaan_lainnya" id="pekerjaan_lainnya" value="{{ old('pekerjaan_lainnya') }}" placeholder="Pekerjaan Lainnya">
+                        <input type="text" class="form-control" name="pekerjaan_lainnya" id="pekerjaan_lainnya" value="{{ old('pekerjaan_lainnya', $item->pekerjaan_lainnya) }}" placeholder="Pekerjaan Lainnya">
                         @error('pekerjaan_lainnya')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -494,42 +495,12 @@
                         <input 
                             type="text" 
                             name="nama_perusahaan" 
-                            value="{{ old('nama_perusahaan') }}" 
+                            value="{{ old('nama_perusahaan', $item->nama_perusahaan) }}" 
                             class="form-control" 
                             id="nama_perusahaan">
                         @error('nama_perusahaan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div>
-                    
-                    <div class="form-row">
-                        <!-- Bidang Perusahaan -->
-                        <div class="form-group col-md-6">
-                            <label for="name">Bidang Perusahaan</label>
-                            <input 
-                                type="text" 
-                                name="bidang_perusahaan" 
-                                value="{{ old('bidang_perusahaan') }}" 
-                                class="form-control" 
-                                id="bidang_perusahaan">
-                            @error('bidang_perusahaan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-    
-                        <!-- Alamat Perusahaan -->
-                        <div class="form-group col-md-6">
-                            <label for="name">Alamat Perusahaan</label>
-                            <input 
-                                type="text" 
-                                name="alamat_perusahaan" 
-                                value="{{ old('alamat_perusahaan') }}" 
-                                class="form-control" 
-                                id="alamat_perusahaan">
-                            @error('alamat_perusahaan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
                     </div>
                     
                     <div class="form-row">
@@ -539,24 +510,23 @@
                             <input 
                                 type="text" 
                                 name="no_telp_perusahaan" 
-                                value="{{ old('no_telp_perusahaan') }}" 
+                                value="{{ old('no_telp_perusahaan', $item->no_telp_perusahaan) }}" 
                                 class="form-control" 
                                 id="no_telp_perusahaan">
                             @error('no_telp_perusahaan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-    
-                        <!-- Jabatan -->
+                        <!-- Alamat Perusahaan -->
                         <div class="form-group col-md-6">
-                            <label for="name">Jabatan</label>
+                            <label for="name">Alamat Perusahaan</label>
                             <input 
                                 type="text" 
-                                name="jabatan" 
-                                value="{{ old('jabatan') }}" 
+                                name="alamat_perusahaan" 
+                                value="{{ old('alamat_perusahaan', $item->alamat_perusahaan) }}" 
                                 class="form-control" 
-                                id="jabatan">
-                            @error('jabatan')
+                                id="alamat_perusahaan">
+                            @error('alamat_perusahaan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -588,7 +558,7 @@
                     <!-- Pengalaman Umroh -->
                     <div class="form-group">
                         <label for="pengalaman_umroh">Pengalaman Umroh <span class="text-danger">*</span></label>
-                        <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh">
+                        <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh_update">
                             <option value="">-- Pilih --</option>
                             <option value="Belum Pernah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Belum Pernah' ? 'selected' : '' }}>Belum Pernah</option>
                             <option value="Sudah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
@@ -599,9 +569,9 @@
                     </div>
                     
                     <!-- Input untuk sudah pengalaman lainnya -->
-                    <div class="form-group" id="SudahPengalamanContainer" style="display: none;">
+                    <div class="form-group" id="SudahPengalamanContainer_update" style="display: none;">
                         <label for="sudah_pengalaman">Terahir Tahun <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman" value="{{ old('sudah_pengalaman') }}" placeholder="Terahir Taun">
+                        <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman_update" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Terahir Taun">
                         @error('sudah_pengalaman')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -609,19 +579,19 @@
                     
                     <script>
                         // JavaScript untuk menampilkan/menghilangkan input teks
-                        document.getElementById('pengalaman_umroh').addEventListener('change', function () {
-                            const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer');
+                        document.getElementById('pengalaman_umroh_update').addEventListener('change', function () {
+                            const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer_update');
                             if (this.value === 'Sudah') {
                                 SudahPengalamanContainer.style.display = 'block';
                             } else {
                                 SudahPengalamanContainer.style.display = 'none';
-                                document.getElementById('sudah_pengalaman').value = ''; // Reset input jika tidak dipilih
+                                document.getElementById('sudah_pengalaman_update').value = ''; // Reset input jika tidak dipilih
                             }
                         });
                     
                         // Menampilkan kembali input teks jika opsi "Lainnya" sudah dipilih sebelumnya (untuk edit form)
-                        if (document.getElementById('pengalaman_umroh').value === 'Sudah') {
-                            document.getElementById('SudahPengalamanContainer').style.display = 'block';
+                        if (document.getElementById('pengalaman_umroh_update').value === 'Sudah') {
+                            document.getElementById('SudahPengalamanContainer_update').style.display = 'block';
                         }
                     </script>
                     
@@ -631,9 +601,9 @@
                             <label for="paket_umroh">Paket Umroh yang dipilih <span class="text-danger">*</span></label>
                             <select class="form-control" name="paket_umroh" id="paket_umroh">
                                 <option value="">-- Pilih --</option>
-                                <option value="Sekamar Berdua" {{ old('paket_umroh') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
-                                <option value="Sekamar Bertiga" {{ old('paket_umroh') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
-                                <option value="Sekamar Berempat" {{ old('paket_umroh') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
+                                <option value="Sekamar Berdua" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
+                                <option value="Sekamar Bertiga" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
+                                <option value="Sekamar Berempat" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
                             </select>
                             @error('paket_umroh')
                                 <small class="text-danger">{{ $message }}</small>
@@ -664,7 +634,7 @@
                             <input 
                                 type="text" 
                                 name="nama_keluarga_ikut" 
-                                value="{{ old('nama_keluarga_ikut') }}" 
+                                value="{{ old('nama_keluarga_ikut', $item->nama_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="nama_keluarga_ikut">
                             @error('nama_keluarga_ikut')
@@ -677,7 +647,7 @@
                             <input 
                                 type="text" 
                                 name="hubungan_keluarga_ikut" 
-                                value="{{ old('hubungan_keluarga_ikut') }}" 
+                                value="{{ old('hubungan_keluarga_ikut', $item->hubungan_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="hubungan_keluarga_ikut">
                             @error('hubungan_keluarga_ikut')
@@ -690,7 +660,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp_keluarga_ikut" 
-                                value="{{ old('no_telp_keluarga_ikut') }}" 
+                                value="{{ old('no_telp_keluarga_ikut', $item->no_telp_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="no_telp_keluarga_ikut">
                             @error('no_telp_keluarga_ikut')
@@ -702,7 +672,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Alamat</span>
                         </div>
-                        <textarea class="form-control" name="alamat_keluarga_ikut" aria-label="Alamat"></textarea>
+                        <textarea class="form-control" name="alamat_keluarga_ikut" aria-label="Alamat">{{ old('alamat_keluarga_ikut', $item->alamat_keluarga_ikut) }}</textarea>
                     </div>
 
                     <hr>
@@ -714,7 +684,7 @@
                             <input 
                                 type="text" 
                                 name="nama_keluarga_tinggal" 
-                                value="{{ old('nama_keluarga_tinggal') }}" 
+                                value="{{ old('nama_keluarga_tinggal', $item->nama_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="nama_keluarga_tinggal">
                             @error('nama_keluarga_tinggal')
@@ -727,7 +697,7 @@
                             <input 
                                 type="text" 
                                 name="hubungan_keluarga_tinggal" 
-                                value="{{ old('hubungan_keluarga_tinggal') }}" 
+                                value="{{ old('hubungan_keluarga_tinggal', $item->hubungan_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="hubungan_keluarga_tinggal">
                             @error('hubungan_keluarga_tinggal')
@@ -740,7 +710,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp_keluarga_tinggal" 
-                                value="{{ old('no_telp_keluarga_tinggal') }}" 
+                                value="{{ old('no_telp_keluarga_tinggal', $item->no_telp_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="no_telp_keluarga_tinggal">
                             @error('no_telp_keluarga_tinggal')
@@ -752,7 +722,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Alamat</span>
                         </div>
-                        <textarea class="form-control" name="alamat_keluarga_tinggal" aria-label="Alamat">{{ old('alamat_keluarga_tinggal') }}</textarea>
+                        <textarea class="form-control" name="alamat_keluarga_tinggal" aria-label="Alamat">{{ old('alamat_keluarga_tinggal', $item->alamat_keluarga_tinggal) }}</textarea>
                     </div>
 
                 </div>

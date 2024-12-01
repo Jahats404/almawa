@@ -76,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kelola-jamaah', [SaJamaahController::class, 'index'])->name('kelola.jamaah');
         Route::post('/tambah-jamaah', [SaJamaahController::class, 'store_jamaah'])->name('tambah.jamaah');
         Route::put('/update-jamaah/{id}', [SaJamaahController::class, 'update_jamaah'])->name('update.jamaah');
+        Route::get('/detail-jamaah/{id}', [SaJamaahController::class, 'detail'])->name('detail.jamaah');
     });
 
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {

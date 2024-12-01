@@ -47,9 +47,9 @@
                                 <td>{{ $item->jamaah->supervisor->name ?? '-' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        {{-- <a href="{{ route('sa.detail.agen', ['id' => $item->agen->no_registrasi]) }}" class="btn btn-success btn-circle btn-sm mr-2" title="Detail">
+                                        <a href="{{ route('sa.detail.jamaah', ['id' => $item->jamaah->ktp]) }}" class="btn btn-success btn-circle btn-sm mr-2" title="Detail">
                                             <i class="fas fa-solid fa-eye"></i>
-                                        </a> --}}
+                                        </a>
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->jamaah->ktp }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>

@@ -158,6 +158,7 @@ class SaJamaahController extends Controller
         // $jam->pesawat = $request->pesawat;
         // $jam->nama_hotel = $request->nama_hotel;
         $jam->pengalaman_umroh = $request->pengalaman_umroh;
+        $jam->terahir_tahun = $request->sudah_pengalaman;
         $jam->paket_umroh = $request->paket_umroh;
         $jam->program = $request->program;
 
@@ -182,6 +183,7 @@ class SaJamaahController extends Controller
 
     public function update_jamaah(Request $request, $id)
     {
+        
         $rules = [
             // Data Jamaah
             'ktp' => 'required|string|max:255|unique:jamaah,ktp',
@@ -256,6 +258,10 @@ class SaJamaahController extends Controller
         if ($request->pengalaman_umroh === 'Belum Pernah') {
             $rules['pengalaman_umroh'] = 'nullable';
         }
+        $jam = Jamaah::find($id);
+        if ($request->ktp == $jam->ktp) {
+            $rules['ktp'] = 'nullable';
+        }
         
         $validator = Validator::make($request->all(), $rules, Jamaah::$messages);
     
@@ -263,9 +269,13 @@ class SaJamaahController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $jam = Jamaah::find($id);
+        $user = User::find($jam->user_id);
+        // $user->id = $request->ktp;
+        $user->name = $request->nama_lengkap;
+        $user->email = $request->email;
+        $user->save();
         
-        $jam->ktp = $request->ktp;
+        // $jam->ktp = $request->ktp;
         $jam->nama_lengkap = $request->nama_lengkap;
         $jam->nama_ayah_kandung = $request->nama_ayah_kandung;
         $jam->tempat_lahir = $request->tempat_lahir;
@@ -305,6 +315,7 @@ class SaJamaahController extends Controller
         // $jam->pesawat = $request->pesawat;
         // $jam->nama_hotel = $request->nama_hotel;
         $jam->pengalaman_umroh = $request->pengalaman_umroh;
+        $jam->terahir_tahun = $request->sudah_pengalaman;
         $jam->paket_umroh = $request->paket_umroh;
         $jam->program = $request->program;
 
@@ -322,5 +333,12 @@ class SaJamaahController extends Controller
         $jam->save();
 
         return redirect()->back()->with('success', 'Jamaah berhasil diperbarui');
+    }
+
+    public function detail($id)
+    {
+        $jamaah = Jamaah::find($id);
+
+        return view('super-admin.pengguna.kelola-jamaah.detail-jamaah', compact('jamaah'));
     }
 }
