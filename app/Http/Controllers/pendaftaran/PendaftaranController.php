@@ -1,35 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\kelola_jamaah;
+namespace App\Http\Controllers\pendaftaran;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
 use App\Models\Jamaah;
 use App\Models\Paket;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class SaJamaahController extends Controller
+class PendaftaranController extends Controller
 {
     public function index()
     {
-        $jamaah = User::where('role_id', 6)
-        ->whereHas('jamaah', function ($query) {
-            $query->where('status', 'Diterima');
-        })
-        ->with('jamaah')->get();
-        $jadwal = Jadwal::all();
+        $jadwal = Jadwal::where('status', 'Disetujui')->get();
+        $user = Auth::user();
         $paket = Paket::all();
         
-        return view('super-admin.pengguna.kelola-jamaah.kelola-jamaah', compact('jamaah', 'jadwal','paket'));
+        return view('jamaah.pendaftaran.pendaftaran', compact('jadwal', 'user','paket'));
     }
 
-    public function store_jamaah(Request $request)
+    public function store(Request $request)
     {
         // dd($request);
         $rules = [
@@ -115,16 +109,7 @@ class SaJamaahController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Membuat user baru
-        $user = new User();
-        $user->name = $request->nama_lengkap;
-        $user->email = $request->email;
-        $user->role_id = 6;
-        $user->password = Hash::make('12345678'); // Default password
-        $user->save();
-
         $jam = new Jamaah();
-        $jam->id_pendaftaran = random_int(1000000, 9999999);
         $jam->ktp = $request->ktp;
         $jam->nama_lengkap = $request->nama_lengkap;
         $jam->nama_ayah_kandung = $request->nama_ayah_kandung;
@@ -181,16 +166,16 @@ class SaJamaahController extends Controller
         $jam->no_telp_keluarga_tinggal = $request->no_telp_keluarga_tinggal;
         $jam->alamat_keluarga_tinggal = $request->alamat_keluarga_tinggal;
 
-        $jam->status = 'Diterima';
-        $jam->user_id = $user->id;
-        $jam->supervisor_id = Auth::user()->id;
+        $jam->status = 'Diajukan';
+        $jam->user_id = Auth::user()->id;
+        // $jam->supervisor_id = Auth::user()->id;
 
         $jam->save();
 
-        return redirect()->back()->with('success', 'Jamaah berhasil ditambahkan');
+        return redirect()->route('jamaah.dashboard')->with('success', 'Data berhasil ditambahkan');
     }
 
-    public function update_jamaah(Request $request, $id)
+    public function update(Request $request, $id)
     {
         
         $rules = [
@@ -279,12 +264,6 @@ class SaJamaahController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $user = User::find($jam->user_id);
-        $user->id = $request->ktp;
-        $user->name = $request->nama_lengkap;
-        $user->email = $request->email;
-        $user->save();
         
         // $jam->ktp = $request->ktp;
         $jam->nama_lengkap = $request->nama_lengkap;
@@ -345,7 +324,7 @@ class SaJamaahController extends Controller
 
         $jam->save();
 
-        return redirect()->back()->with('success', 'Jamaah berhasil diperbarui');
+        return redirect()->back()->with('success', 'Data berhasil diperbarui');
     }
 
     public function detail($id)
@@ -360,22 +339,6 @@ class SaJamaahController extends Controller
         $jamaah = Jamaah::find($id);
         $jamaah->delete();
 
-        return redirect()->back()->with('success', 'Jamaah berhasil dihapus');
-    }
-
-    public function pengajuan_jamaah()
-    {
-        $jamaah = Jamaah::whereIn('status', ['Diajukan','Ditolak'])->get();
-        
-        return view('super-admin.pengguna.kelola-jamaah.pengajuan-jammah', compact('jamaah'));
-    }
-
-    public function ubah_status_jamaah(Request $request, $id)
-    {
-        $agen = Jamaah::findOrFail($id);
-        $agen->status = $request->status;
-        $agen->save();
-
-        return redirect()->back()->with('success', 'Status berhasil diubah');
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

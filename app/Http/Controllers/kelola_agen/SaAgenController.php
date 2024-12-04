@@ -277,10 +277,10 @@ class SaAgenController extends Controller
         return view('super-admin.pengguna.kelola-agen.pengajuan-agen', compact('role', 'agen'));
     }
 
-    public function ubah_status_agen($id)
+    public function ubah_status_agen(Request $request, $id)
     {
         $agen = Agen::findOrFail($id);
-        $agen->status = 'Diterima';
+        $agen->status = $request->status;
         $agen->save();
 
         return redirect()->back()->with('success', 'Status berhasil diubah');

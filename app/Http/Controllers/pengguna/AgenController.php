@@ -24,7 +24,7 @@ class AgenController extends Controller
     {
         // Validasi data input
         $rules = [
-            'no_registrasi'       => 'required|numeric|unique:agen,no_registrasi',
+            // 'no_registrasi'       => 'required|numeric|unique:agen,no_registrasi',
             'ktp'                 => 'required|string|size:16|unique:agen,ktp',
             'nama_lengkap'        => 'required|string|max:255',
             'nama_ayah_kandung'   => 'required|string|max:255',
@@ -61,12 +61,6 @@ class AgenController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Membuat user baru
-        $user = User::find(Auth::user()->id);
-        $user->name = $request->nama_lengkap;
-        $user->email = $request->email;
-        $user->save();
-
         // Membuat agen baru
         $agen = new Agen();
         $agen->no_registrasi = str_pad(rand(1, 9999999), 7, '0', STR_PAD_LEFT); // 7 digit angka
@@ -83,8 +77,8 @@ class AgenController extends Controller
         $agen->kabupaten = $request->kabupaten;
         $agen->provinsi = $request->provinsi;
         $agen->no_telp = $request->no_telp;
-        $agen->status = 'Pending';
-        $agen->user_id = $user->id; // Menghubungkan agen ke user yang baru dibuat
+        $agen->status = 'Diajukan';
+        $agen->user_id = Auth::user()->id; // Menghubungkan agen ke user yang baru dibuat
 
         // Upload file KTP jika ada
         if ($request->hasFile('file_ktp')) {
@@ -113,5 +107,12 @@ class AgenController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->route('agen.dashboard')->with('success', 'Data berhasil dilengkapi.');
+    }
+
+    public function detail()
+    {
+        $agen = Agen::where('user_id',Auth::user()->id)->first();
+
+        return view('agen.detail-agen',compact('agen'));
     }
 }

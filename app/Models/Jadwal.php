@@ -16,6 +16,10 @@ class Jadwal extends Model
 
     public function jamaah()
     {
-        return $this->hasMany(Jamaah::class, 'jadwal_id', 'id_jadwal');
+        return $this->hasMany(Jamaah::class, 'rencana_keberangkatan', 'id_jadwal');
+    }
+    public function paket()
+    {
+        return $this->hasMany(Paket::class, 'jadwal_id', 'id_jadwal');
     }
 }

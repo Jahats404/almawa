@@ -1,14 +1,16 @@
-<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalEdit{{ $item->id_pendaftaran }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Form Edit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('sa.tambah.jamaah') }}" method="POST" enctype="multipart/form-data">
+            
+            <form action="{{ route('jamaah.pendaftaran.update', ['id' => $item->id_pendaftaran]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('put')
                 <div class="modal-body">
                     <h3 class="font-weight-bold text-primary">DATA PRIBADI</h3>
                     <hr>
@@ -19,7 +21,8 @@
                             <input 
                                 type="text" 
                                 name="ktp" 
-                                value="{{ old('ktp') }}" 
+                                value="{{ old('ktp', $item->ktp) }}" 
+                                readonly
                                 class="form-control">
                             @error('ktp')
                                 <small class="text-danger">{{ $message }}</small>
@@ -32,7 +35,7 @@
                                 type="email" 
                                 name="email" 
                                 placeholder="Tidak Wajib"
-                                value="{{ old('email') }}" 
+                                value="{{ old('email', $item->email) }}" 
                                 class="form-control" 
                                 id="exampleInputEmail1">
                             @error('email')
@@ -48,7 +51,7 @@
                             <input 
                                 type="text" 
                                 name="nama_lengkap" 
-                                value="{{ old('nama_lengkap') }}" 
+                                value="{{ old('nama_lengkap', $item->nama_lengkap) }}" 
                                 class="form-control" 
                                 id="nama_lengkap">
                             @error('nama_lengkap')
@@ -62,7 +65,7 @@
                             <input 
                                 type="text" 
                                 name="nama_ayah_kandung" 
-                                value="{{ old('nama_ayah_kandung') }}" 
+                                value="{{ old('nama_ayah_kandung', $item->nama_ayah_kandung) }}" 
                                 class="form-control" 
                                 id="nama_ayah_kandung">
                             @error('nama_ayah_kandung')
@@ -78,7 +81,7 @@
                             <input 
                                 type="text" 
                                 name="tempat_lahir" 
-                                value="{{ old('tempat_lahir') }}" 
+                                value="{{ old('tempat_lahir', $item->tempat_lahir) }}" 
                                 class="form-control" 
                                 id="tempat_lahir">
                             @error('tempat_lahir')
@@ -91,8 +94,8 @@
                             <label for="Jenis Kelamin">Pilih Jenis Kelamin <span class="text-danger">*</span></label>
                             <select class="form-control" name="jenis_kelamin" id="role">
                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                    <option value="Pria" {{ old('jenis_kelamin') == 'Pria' ? 'selected' : '' }}>Pria</option>
-                                    <option value="Wanita" {{ old('jenis_kelamin') == 'Wanita' ? 'selected' : '' }}>Wanita</option>
+                                    <option value="Pria" {{ old('jenis_kelamin', $item->jenis_kelamin ?? '') == 'Pria' ? 'selected' : '' }}>Pria</option>
+                                    <option value="Wanita" {{ old('jenis_kelamin', $item->jenis_kelamin ?? '') == 'Wanita' ? 'selected' : '' }}>Wanita</option>
                             </select>
                             @error('jenis_kelamin')
                                 <small class="text-danger">{{ $message }}</small>
@@ -107,7 +110,7 @@
                             <input 
                                 type="date" 
                                 name="tanggal_lahir" 
-                                value="{{ old('tanggal_lahir') }}" 
+                                value="{{ old('tanggal_lahir', $item->tanggal_lahir) }}" 
                                 class="form-control" 
                                 id="tanggal_lahir">
                             @error('tanggal_lahir')
@@ -120,7 +123,7 @@
                             <input 
                                 type="number" 
                                 name="umur" 
-                                value="{{ old('umur') }}" 
+                                value="{{ old('umur', $item->umur) }}" 
                                 class="form-control" 
                                 id="umur" 
                                 readonly>
@@ -173,7 +176,7 @@
                                 name="tinggi"
                                 min="1" 
                                 placeholder="... CM"
-                                value="{{ old('tinggi') }}" 
+                                value="{{ old('tinggi', $item->tinggi) }}" 
                                 class="form-control" 
                                 id="tinggi">
                             @error('tinggi')
@@ -189,7 +192,7 @@
                                 name="berat" 
                                 min="1"
                                 placeholder="... KG"
-                                value="{{ old('berat') }}" 
+                                value="{{ old('berat', $item->berat) }}" 
                                 class="form-control" 
                                 id="berat">
                             @error('berat')
@@ -205,7 +208,7 @@
                             <input 
                                 type="text" 
                                 name="muka"
-                                value="{{ old('muka') }}" 
+                                value="{{ old('muka', $item->muka) }}" 
                                 class="form-control" 
                                 id="muka">
                             @error('muka')
@@ -219,7 +222,7 @@
                             <input 
                                 type="text" 
                                 name="hidung" 
-                                value="{{ old('hidung') }}" 
+                                value="{{ old('hidung', $item->hidung) }}" 
                                 class="form-control" 
                                 id="hidung">
                             @error('hidung')
@@ -235,7 +238,7 @@
                             <input 
                                 type="text" 
                                 name="alis"
-                                value="{{ old('alis') }}" 
+                                value="{{ old('alis', $item->alis) }}" 
                                 class="form-control" 
                                 id="alis">
                             @error('alis')
@@ -249,7 +252,7 @@
                             <input 
                                 type="text" 
                                 name="rambut" 
-                                value="{{ old('rambut') }}" 
+                                value="{{ old('rambut', $item->rambut) }}" 
                                 class="form-control" 
                                 id="rambut">
                             @error('rambut')
@@ -265,7 +268,7 @@
                             <input 
                                 type="text" 
                                 name="penyakit"
-                                value="{{ old('penyakit') }}" 
+                                value="{{ old('penyakit', $item->penyakit) }}" 
                                 class="form-control" 
                                 id="penyakit">
                             @error('penyakit')
@@ -278,8 +281,8 @@
                             <label for="name">Rokok <span class="text-danger">*</span></label>
                             <select name="rokok" value="{{ old('rokok') }}" class="form-control" id="rokok">
                                 <option value="">-- Pilih --</option>
-                                <option value="Iya" {{ old('rokok') == 'Iya' ? 'selected' : '' }}>Iya</option>
-                                <option value="Tidak" {{ old('Tidak') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                                <option value="Iya" {{ old('rokok', $item->rokok ?? '') == 'Iya' ? 'selected' : '' }}>Iya</option>
+                                <option value="Tidak" {{ old('rokok', $item->rokok ?? '') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
                             </select>
                             @error('rokok')
                                 <small class="text-danger">{{ $message }}</small>
@@ -292,8 +295,8 @@
                         <label for="kewarganegaraan">Kewarganegaraan <span class="text-danger">*</span></label>
                         <select name="kewarganegaraan" value="{{ old('kewarganegaraan') }}" class="form-control" id="kewarganegaraan">
                             <option value="">-- Pilih --</option>
-                            <option value="WNI" {{ old('kewarganegaraan') == 'WNI' ? 'selected' : '' }}>WNI</option>
-                            <option value="WNA" {{ old('kewarganegaraan') == 'WNA' ? 'selected' : '' }}>WNA</option>
+                            <option value="WNI" {{ old('kewarganegaraan', $item->kewarganegaraan ?? '') == 'WNI' ? 'selected' : '' }}>WNI</option>
+                            <option value="WNA" {{ old('kewarganegaraan', $item->kewarganegaraan ?? '') == 'WNA' ? 'selected' : '' }}>WNA</option>
                         </select>
                         @error('kewarganegaraan')
                             <small class="text-danger">{{ $message }}</small>
@@ -313,7 +316,7 @@
                             <input 
                                 type="text" 
                                 name="nama_jalan" 
-                                value="{{ old('nama_jalan') }}" 
+                                value="{{ old('nama_jalan', $item->nama_jalan) }}" 
                                 class="form-control" 
                                 id="nama_jalan">
                             @error('nama_jalan')
@@ -327,7 +330,7 @@
                             <input 
                                 type="text" 
                                 name="desa" 
-                                value="{{ old('desa') }}" 
+                                value="{{ old('desa', $item->desa) }}" 
                                 class="form-control" 
                                 id="desa">
                             @error('desa')
@@ -343,7 +346,7 @@
                             <input 
                                 type="text" 
                                 name="kecamatan" 
-                                value="{{ old('kecamatan') }}" 
+                                value="{{ old('kecamatan', $item->kecamatan) }}" 
                                 class="form-control" 
                                 id="kecamatan">
                             @error('kecamatan')
@@ -357,7 +360,7 @@
                             <input 
                                 type="text" 
                                 name="kabupaten" 
-                                value="{{ old('kabupaten') }}" 
+                                value="{{ old('kabupaten', $item->kabupaten) }}" 
                                 class="form-control" 
                                 id="kabupaten">
                             @error('kabupaten')
@@ -373,7 +376,7 @@
                             <input 
                                 type="text" 
                                 name="provinsi" 
-                                value="{{ old('provinsi') }}" 
+                                value="{{ old('provinsi', $item->provinsi) }}" 
                                 class="form-control" 
                                 id="provinsi">
                             @error('provinsi')
@@ -387,7 +390,7 @@
                             <input 
                                 type="number" 
                                 name="kode_pos" 
-                                value="{{ old('kode_pos') }}" 
+                                value="{{ old('kode_pos', $item->kode_pos) }}" 
                                 class="form-control" 
                                 id="kode_pos">
                             @error('kode_pos')
@@ -403,7 +406,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp" 
-                                value="{{ old('no_telp') }}" 
+                                value="{{ old('no_telp', $item->no_telp) }}" 
                                 class="form-control" 
                                 id="no_telp">
                             @error('no_telp')
@@ -415,14 +418,16 @@
                             <label for="pendidikan_terahir">Pilih Pendidikan Terahir <span class="text-muted font-italic text-gray-500">(Tidak Wajib)</span></label>
                             <select class="form-control" name="pendidikan_terahir" id="pendidikan_terahir">
                                 <option value="">-- Pilih Pendidikan Terahir --</option>
-                                <option value="SD" {{ old('pekerjaan') == 'SD' ? 'selected' : '' }}>SD</option>
-                                <option value="SLTP" {{ old('pekerjaan') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
-                                <option value="SMU" {{ old('pekerjaan') == 'SMU' ? 'selected' : '' }}>SMU</option>
-                                <option value="D1/D2" {{ old('pekerjaan') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
-                                <option value="SM/D3" {{ old('pekerjaan') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
-                                <option value="S1" {{ old('pekerjaan') == 'S1' ? 'selected' : '' }}>S1</option>
-                                <option value="S2" {{ old('pekerjaan') == 'S2' ? 'selected' : '' }}>S2</option>
-                                <option value="S3" {{ old('pekerjaan') == 'S3' ? 'selected' : '' }}>S3</option>
+                                <option value="SD" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SD' ? 'selected' : '' }}>SD</option>
+                                <option value="SLTP" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
+                                <option value="SMU" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SMU' ? 'selected' : '' }}>SMU</option>
+                                <option value="D1/D2" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
+                                <option value="SM/D3" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
+                                <option value="S1" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
+                                <option value="S2" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
+                                <option value="S3" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
+                                <option value="PNS" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
+
                             </select>
                             @error('pekerjaan')
                                 <small class="text-danger">{{ $message }}</small>
@@ -440,16 +445,16 @@
                         <label for="pekerjaan">Pilih Pekerjaan <span class="text-danger">*</span></label>
                         <select class="form-control" name="pekerjaan" id="pekerjaan">
                             <option value="">-- Pilih Pekerjaan --</option>
-                            <option value="PNS" {{ old('pekerjaan') == 'PNS' ? 'selected' : '' }}>PNS</option>
-                            <option value="Peg. Swasta" {{ old('pekerjaan') == 'Peg. Swasta' ? 'selected' : '' }}>Peg. Swasta</option>
-                            <option value="ABRI" {{ old('pekerjaan') == 'ABRI' ? 'selected' : '' }}>ABRI</option>
-                            <option value="BUMN" {{ old('pekerjaan') == 'BUMN' ? 'selected' : '' }}>BUMN</option>
-                            <option value="Wiraswasta" {{ old('pekerjaan') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
-                            <option value="Pelajar" {{ old('pekerjaan') == 'Pelajar' ? 'selected' : '' }}>Pelajar</option>
-                            <option value="Mahasiswa" {{ old('pekerjaan') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
-                            <option value="Ibu Rumah Tangga" {{ old('pekerjaan') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
-                            <option value="Pensiunan" {{ old('pekerjaan') == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
-                            <option value="Lainnya" {{ old('pekerjaan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            <option value="PNS" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
+                            <option value="Peg. Swasta" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Peg. Swasta' ? 'selected' : '' }}>Peg. Swasta</option>
+                            <option value="ABRI" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'ABRI' ? 'selected' : '' }}>ABRI</option>
+                            <option value="BUMN" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'BUMN' ? 'selected' : '' }}>BUMN</option>
+                            <option value="Wiraswasta" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
+                            <option value="Pelajar" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Pelajar' ? 'selected' : '' }}>Pelajar</option>
+                            <option value="Mahasiswa" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                            <option value="Ibu Rumah Tangga" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
+                            <option value="Pensiunan" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
+                            <option value="Lainnya" {{ old('pekerjaan', $item->pekerjaan ?? '') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                         </select>
                         @error('pekerjaan')
                             <small class="text-danger">{{ $message }}</small>
@@ -459,7 +464,7 @@
                     <!-- Input untuk pekerjaan lainnya -->
                     <div class="form-group" id="pekerjaanLainnyaContainer" style="display: none;">
                         <label for="pekerjaan_lainnya">Masukkan Pekerjaan Lainnya</label>
-                        <input type="text" class="form-control" name="pekerjaan_lainnya" id="pekerjaan_lainnya" value="{{ old('pekerjaan_lainnya') }}" placeholder="Pekerjaan Lainnya">
+                        <input type="text" class="form-control" name="pekerjaan_lainnya" id="pekerjaan_lainnya" value="{{ old('pekerjaan_lainnya', $item->pekerjaan_lainnya) }}" placeholder="Pekerjaan Lainnya">
                         @error('pekerjaan_lainnya')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -490,42 +495,12 @@
                         <input 
                             type="text" 
                             name="nama_perusahaan" 
-                            value="{{ old('nama_perusahaan') }}" 
+                            value="{{ old('nama_perusahaan', $item->nama_perusahaan) }}" 
                             class="form-control" 
                             id="nama_perusahaan">
                         @error('nama_perusahaan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div>
-                    
-                    <div class="form-row">
-                        <!-- Bidang Perusahaan -->
-                        <div class="form-group col-md-6">
-                            <label for="name">Bidang Perusahaan</label>
-                            <input 
-                                type="text" 
-                                name="bidang_perusahaan" 
-                                value="{{ old('bidang_perusahaan') }}" 
-                                class="form-control" 
-                                id="bidang_perusahaan">
-                            @error('bidang_perusahaan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-    
-                        <!-- Alamat Perusahaan -->
-                        <div class="form-group col-md-6">
-                            <label for="name">Alamat Perusahaan</label>
-                            <input 
-                                type="text" 
-                                name="alamat_perusahaan" 
-                                value="{{ old('alamat_perusahaan') }}" 
-                                class="form-control" 
-                                id="alamat_perusahaan">
-                            @error('alamat_perusahaan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
                     </div>
                     
                     <div class="form-row">
@@ -535,24 +510,23 @@
                             <input 
                                 type="text" 
                                 name="no_telp_perusahaan" 
-                                value="{{ old('no_telp_perusahaan') }}" 
+                                value="{{ old('no_telp_perusahaan', $item->no_telp_perusahaan) }}" 
                                 class="form-control" 
                                 id="no_telp_perusahaan">
                             @error('no_telp_perusahaan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-    
-                        <!-- Jabatan -->
+                        <!-- Alamat Perusahaan -->
                         <div class="form-group col-md-6">
-                            <label for="name">Jabatan</label>
+                            <label for="name">Alamat Perusahaan</label>
                             <input 
                                 type="text" 
-                                name="jabatan" 
-                                value="{{ old('jabatan') }}" 
+                                name="alamat_perusahaan" 
+                                value="{{ old('alamat_perusahaan', $item->alamat_perusahaan) }}" 
                                 class="form-control" 
-                                id="jabatan">
-                            @error('jabatan')
+                                id="alamat_perusahaan">
+                            @error('alamat_perusahaan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -564,13 +538,13 @@
                         <!-- paket -->
                         <div class="form-group col-md-12">
                             <label for="paket">Pilih Paket <span class="text-danger">*</span></label>
-                            <select class="form-control" name="paket_id" id="paket">
+                            <select class="form-control" name="paket_id" id="paket_formUpdate">
                                 <option value="">-- Pilih Paket --</option>
-                                @foreach ($paket as $item)
+                                @foreach ($paket as $pakets)
                                     <option 
-                                        value="{{ $item->id_paket }}" 
-                                        {{ old('rencana_keberangkatan') == $item->id_paket ? 'selected' : '' }}>
-                                        {{ $item->nama_paket }}
+                                        value="{{ $pakets->id_paket }}" 
+                                        {{ old('rencana_keberangkatan', $item->paket_id ?? '-') == $pakets->id_paket ? 'selected' : '' }}>
+                                        {{ $pakets->nama_paket }}
                                     </option>
                                 @endforeach
                             </select>
@@ -591,8 +565,8 @@
                             <label for="Paspor">Paspor <span class="text-danger">*</span></label>
                             <select class="form-control" name="paspor" id="role">
                                 <option value="">-- Pilih Paspor --</option>
-                                    <option value="Memiliki" {{ old('paspor') == 'Memiliki' ? 'selected' : '' }}>Memiliki</option>
-                                    <option value="Tidak Memiliki" {{ old('paspor') == 'Tidak Memiliki' ? 'selected' : '' }}>Tidak Memiliki</option>
+                                    <option value="Memiliki" {{ old('paspor', $item->paspor ?? '-') == 'Memiliki' ? 'selected' : '' }}>Memiliki</option>
+                                    <option value="Tidak Memiliki" {{ old('paspor', $item->paspor ?? '-') == 'Tidak Memiliki' ? 'selected' : '' }}>Tidak Memiliki</option>
                             </select>
                             @error('paspor')
                                 <small class="text-danger">{{ $message }}</small>
@@ -601,18 +575,18 @@
                     </div>
 
                     <!-- Tambahkan wrapper untuk inputan selain paspor -->
-                    <div id="form-lanjutan">
-                        <!-- Rencana Keberangkatan -->
+                    <div id="form-lanjutan_formUpdate">
                         <div class="form-row">
+                            <!-- rencana_keberangkatan -->
                             <div class="form-group col-md-12">
                                 <label for="rencana_keberangkatan">Rencana Keberangkatan <span class="text-danger">*</span></label>
                                 <select class="form-control" name="rencana_keberangkatan" id="rencana_keberangkatan">
                                     <option value="">-- Pilih Rencana Keberangkatan --</option>
-                                    @foreach ($jadwal as $item)
+                                    @foreach ($jadwal as $jad)
                                         <option 
-                                            value="{{ $item->id_jadwal }}" 
-                                            {{ old('rencana_keberangkatan') == $item->id_jadwal ? 'selected' : '' }}>
-                                            {{ \Carbon\Carbon::parse($item->jadwal)->translatedFormat('d F Y, H:i') . ' | Pesawat : ' . $item->pesawat . ' | Makkah : ' . $item->makkah . ' | Madinah : ' . $item->madinah }}
+                                            value="{{ $jad->id_jadwal }}" 
+                                            {{ old('rencana_keberangkatan', $item->rencana_keberangkatan ?? '') == $jad->id_jadwal ? 'selected' : '' }}>
+                                            {{ \Carbon\Carbon::parse($jad->jadwal)->translatedFormat('d F Y, H:i') . ' | Pesawat : ' . ($jad->pesawat ?? '-') . ' | Makkah : ' . ($jad->makkah ?? '-') . ' | Madinah : ' . ($jad->madinah ?? '-') }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -621,13 +595,14 @@
                                 @enderror
                             </div>
                         </div>
+    
                         <!-- Pengalaman Umroh -->
                         <div class="form-group">
                             <label for="pengalaman_umroh">Pengalaman Umroh <span class="text-danger">*</span></label>
-                            <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh">
+                            <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh_update">
                                 <option value="">-- Pilih --</option>
-                                <option value="Belum Pernah" {{ old('pengalaman_umroh') == 'Belum Pernah' ? 'selected' : '' }}>Belum Pernah</option>
-                                <option value="Sudah" {{ old('pengalaman_umroh') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
+                                <option value="Belum Pernah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Belum Pernah' ? 'selected' : '' }}>Belum Pernah</option>
+                                <option value="Sudah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
                             </select>
                             @error('pengalaman_umroh')
                                 <small class="text-danger">{{ $message }}</small>
@@ -635,13 +610,31 @@
                         </div>
                         
                         <!-- Input untuk sudah pengalaman lainnya -->
-                        <div class="form-group">
+                        <div class="form-group" id="SudahPengalamanContainer_update" style="display: none;">
                             <label for="sudah_pengalaman">Terahir Tahun <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Jika ada pengalaman umroh">
+                            <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman_update" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Terahir Taun">
                             @error('sudah_pengalaman')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        
+                        <script>
+                            // JavaScript untuk menampilkan/menghilangkan input teks
+                            document.getElementById('pengalaman_umroh_update').addEventListener('change', function () {
+                                const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer_update');
+                                if (this.value === 'Sudah') {
+                                    SudahPengalamanContainer.style.display = 'block';
+                                } else {
+                                    SudahPengalamanContainer.style.display = 'none';
+                                    document.getElementById('sudah_pengalaman_update').value = ''; // Reset input jika tidak dipilih
+                                }
+                            });
+                        
+                            // Menampilkan kembali input teks jika opsi "Lainnya" sudah dipilih sebelumnya (untuk edit form)
+                            if (document.getElementById('pengalaman_umroh_update').value === 'Sudah') {
+                                document.getElementById('SudahPengalamanContainer_update').style.display = 'block';
+                            }
+                        </script>
                         
                         <div class="form-row">
                             <!-- Paket Umroh -->
@@ -649,22 +642,22 @@
                                 <label for="paket_umroh">Paket Umroh yang dipilih <span class="text-danger">*</span></label>
                                 <select class="form-control" name="paket_umroh" id="paket_umroh">
                                     <option value="">-- Pilih --</option>
-                                    <option value="Sekamar Berdua" {{ old('paket_umroh') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
-                                    <option value="Sekamar Bertiga" {{ old('paket_umroh') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
-                                    <option value="Sekamar Berempat" {{ old('paket_umroh') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
+                                    <option value="Sekamar Berdua" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
+                                    <option value="Sekamar Bertiga" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
+                                    <option value="Sekamar Berempat" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
                                 </select>
                                 @error('paket_umroh')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
+    
                             <!-- Program -->
                             <div class="form-group col-md-6">
                                 <label for="program">Program <span class="text-danger">*</span></label>
                                 <select class="form-control" name="program" id="program">
                                     <option value="">-- Pilih Program --</option>
-                                    <option value="Sembilan Hari" {{ old('program') == 'Sembilan Hari' ? 'selected' : '' }}>Sembilan Hari</option>
-                                    <option value="Dua Belas Hari" {{ old('program') == 'Dua Belas Hari' ? 'selected' : '' }}>Dua Belas Hari</option>
+                                    <option value="Sembilan Hari" {{ old('program', $item->program ?? '') == 'Sembilan Hari' ? 'selected' : '' }}>Sembilan Hari</option>
+                                    <option value="Dua Belas Hari" {{ old('program', $item->program ?? '') == 'Dua Belas Hari' ? 'selected' : '' }}>Dua Belas Hari</option>
                                 </select>
                                 @error('program')
                                     <small class="text-danger">{{ $message }}</small>
@@ -672,11 +665,10 @@
                             </div>
                         </div>
                     </div>
-                    
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
-                            const paketSelect = document.getElementById('paket');
-                            const formLanjutan = document.getElementById('form-lanjutan');
+                            const paketSelect = document.getElementById('paket_formUpdate');
+                            const formLanjutan = document.getElementById('form-lanjutan_formUpdate');
                     
                             function toggleFormLanjutan() {
                                 const selectedValue = paketSelect.value;
@@ -695,6 +687,8 @@
                         });
                     </script>
 
+                    
+
                     <hr>
                     <h3 class="font-weight-bold text-primary">DATA KELUARGA</h3>
                     <p class="text-muted font-weight-bold">Keluarga yang ikut bersama : </p>
@@ -705,7 +699,7 @@
                             <input 
                                 type="text" 
                                 name="nama_keluarga_ikut" 
-                                value="{{ old('nama_keluarga_ikut') }}" 
+                                value="{{ old('nama_keluarga_ikut', $item->nama_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="nama_keluarga_ikut">
                             @error('nama_keluarga_ikut')
@@ -718,7 +712,7 @@
                             <input 
                                 type="text" 
                                 name="hubungan_keluarga_ikut" 
-                                value="{{ old('hubungan_keluarga_ikut') }}" 
+                                value="{{ old('hubungan_keluarga_ikut', $item->hubungan_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="hubungan_keluarga_ikut">
                             @error('hubungan_keluarga_ikut')
@@ -731,7 +725,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp_keluarga_ikut" 
-                                value="{{ old('no_telp_keluarga_ikut') }}" 
+                                value="{{ old('no_telp_keluarga_ikut', $item->no_telp_keluarga_ikut) }}" 
                                 class="form-control" 
                                 id="no_telp_keluarga_ikut">
                             @error('no_telp_keluarga_ikut')
@@ -743,7 +737,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Alamat</span>
                         </div>
-                        <textarea class="form-control" name="alamat_keluarga_ikut" aria-label="Alamat"></textarea>
+                        <textarea class="form-control" name="alamat_keluarga_ikut" aria-label="Alamat">{{ old('alamat_keluarga_ikut', $item->alamat_keluarga_ikut) }}</textarea>
                     </div>
 
                     <hr>
@@ -755,7 +749,7 @@
                             <input 
                                 type="text" 
                                 name="nama_keluarga_tinggal" 
-                                value="{{ old('nama_keluarga_tinggal') }}" 
+                                value="{{ old('nama_keluarga_tinggal', $item->nama_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="nama_keluarga_tinggal">
                             @error('nama_keluarga_tinggal')
@@ -768,7 +762,7 @@
                             <input 
                                 type="text" 
                                 name="hubungan_keluarga_tinggal" 
-                                value="{{ old('hubungan_keluarga_tinggal') }}" 
+                                value="{{ old('hubungan_keluarga_tinggal', $item->hubungan_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="hubungan_keluarga_tinggal">
                             @error('hubungan_keluarga_tinggal')
@@ -781,7 +775,7 @@
                             <input 
                                 type="text" 
                                 name="no_telp_keluarga_tinggal" 
-                                value="{{ old('no_telp_keluarga_tinggal') }}" 
+                                value="{{ old('no_telp_keluarga_tinggal', $item->no_telp_keluarga_tinggal) }}" 
                                 class="form-control" 
                                 id="no_telp_keluarga_tinggal">
                             @error('no_telp_keluarga_tinggal')
@@ -793,7 +787,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Alamat</span>
                         </div>
-                        <textarea class="form-control" name="alamat_keluarga_tinggal" aria-label="Alamat">{{ old('alamat_keluarga_tinggal') }}</textarea>
+                        <textarea class="form-control" name="alamat_keluarga_tinggal" aria-label="Alamat">{{ old('alamat_keluarga_tinggal', $item->alamat_keluarga_tinggal) }}</textarea>
                     </div>
 
                 </div>

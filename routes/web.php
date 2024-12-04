@@ -6,7 +6,10 @@ use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\kelola_agen\MarketingAgenController;
 use App\Http\Controllers\kelola_agen\SaAgenController;
 use App\Http\Controllers\kelola_jadwal\SaJadwalController;
+use App\Http\Controllers\kelola_jamaah\AgenJamaahController;
 use App\Http\Controllers\kelola_jamaah\SaJamaahController;
+use App\Http\Controllers\paket\SaPaketController;
+use App\Http\Controllers\pendaftaran\PendaftaranController;
 use App\Http\Controllers\pengguna\AgenController;
 use App\Http\Controllers\pengguna\PenggunaController;
 use Illuminate\Support\Facades\Route;
@@ -64,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update-agen/{id}', [SaAgenController::class, 'update_agen'])->name('update.agen');
         Route::delete('/delete-agen/{id}', [SaAgenController::class, 'delete_agen'])->name('delete.agen');
         Route::get('/status-agen', [SaAgenController::class, 'status_agen'])->name('status.agen');
-        Route::post('/ubah-status-agen/{id}', [SaAgenController::class, 'ubah_status_agen'])->name('ubah.status.agen');
+        Route::put('/ubah-status-agen/{id}', [SaAgenController::class, 'ubah_status_agen'])->name('ubah.status.agen');
 
         //PENGGUNA JADWAL
         Route::get('/kelola-jadwal', [SaJadwalController::class, 'index'])->name('kelola.jadwal');
@@ -77,6 +80,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tambah-jamaah', [SaJamaahController::class, 'store_jamaah'])->name('tambah.jamaah');
         Route::put('/update-jamaah/{id}', [SaJamaahController::class, 'update_jamaah'])->name('update.jamaah');
         Route::get('/detail-jamaah/{id}', [SaJamaahController::class, 'detail'])->name('detail.jamaah');
+        Route::delete('/delete-jamaah/{id}', [SaJamaahController::class, 'delete'])->name('delete.jamaah');
+        Route::get('/pengajuan-jamaah', [SaJamaahController::class, 'pengajuan_jamaah'])->name('pengajuan.jamaah');
+        Route::put('/ubah-status-jamaah/{id}', [SaJamaahController::class, 'ubah_status_jamaah'])->name('ubah.status.jamaah');
+
+        //PAKET
+        Route::get('/kelola-paket', [SaPaketController::class, 'index'])->name('kelola.paket');
+        Route::post('/tambah-paket', [SaPaketController::class, 'store'])->name('tambah.paket');
+        Route::put('/update-paket/{id}', [SaPaketController::class, 'update'])->name('update.paket');
+        Route::delete('/delete-paket/{id}', [SaPaketController::class, 'delete'])->name('delete.paket');
     });
 
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
@@ -102,6 +114,31 @@ Route::middleware(['auth'])->group(function () {
 
         // LENGKAPI DATA
         Route::get('/lengkapi-data', [AgenController::class, 'lengkapi_data'])->name('lengkapi.data');
+        Route::get('/detail-data', [AgenController::class, 'detail'])->name('detail');
         Route::post('/action/lengkapi-data', [AgenController::class, 'action_lengkapi_data'])->name('action.lengkapi.data');
+        
+        //PENGGUNA JAMAAH
+        Route::get('/kelola-jamaah', [AgenJamaahController::class, 'index'])->name('kelola.jamaah');
+        Route::post('/tambah-jamaah', [AgenJamaahController::class, 'store_jamaah'])->name('tambah.jamaah');
+        Route::put('/update-jamaah/{id}', [AgenJamaahController::class, 'update_jamaah'])->name('update.jamaah');
+        Route::get('/detail-jamaah/{id}', [AgenJamaahController::class, 'detail'])->name('detail.jamaah');
+        Route::delete('/delete-jamaah/{id}', [AgenJamaahController::class, 'delete'])->name('delete.jamaah');
+        Route::get('/pengajuan-jamaah', [AgenJamaahController::class, 'pengajuan_jamaah'])->name('pengajuan.jamaah');
+    });
+
+
+    Route::prefix('jamaah')->name('jamaah.')->middleware('CekUserLogin:6')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard_jamaah'])->name('dashboard');
+
+        // PENDAFTARAN
+        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
+        Route::post('/pendaftaran-store', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+        Route::put('/pendaftaran-update/{id}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
+        Route::get('/pendaftaran-detail/{id}', [PendaftaranController::class, 'detail'])->name('pendaftaran.detail');
+        Route::delete('/pendaftaran-delete/{id}', [PendaftaranController::class, 'delete'])->name('pendaftaran.delete');
+        
+        // LENGKAPI DATA
+        // Route::get('/lengkapi-data', [AgenController::class, 'lengkapi_data'])->name('lengkapi.data');
+        // Route::post('/action/lengkapi-data', [AgenController::class, 'action_lengkapi_data'])->name('action.lengkapi.data');
     });
 });

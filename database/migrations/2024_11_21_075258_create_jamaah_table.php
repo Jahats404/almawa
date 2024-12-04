@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jamaah', function (Blueprint $table) {
-            $table->string('ktp')->primary();
+            $table->id('id_pendaftaran');
+            $table->string('ktp');
             $table->string('nama_lengkap');
             $table->string('nama_ayah_kandung');
             $table->string('tempat_lahir');
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->string('rambut')->nullable();
 
             $table->string('penyakit');
-            $table->enum('rokok', ['iya', 'Tidak']);
+            $table->enum('rokok', ['Iya', 'Tidak']);
             
             $table->enum('kewarganegaraan', ['WNI', 'WNA']);
             
@@ -51,16 +52,20 @@ return new class extends Migration
             $table->string('no_telp_perusahaan')->nullable();
             
             // data keberangkatan
-            $table->unsignedBigInteger('rencana_keberangkatan');
+            $table->unsignedBigInteger('paket_id');
+            $table->foreign('paket_id')->references('id_paket')->on('paket')->onDelete('cascade');
+            $table->string('paspor');
+            
+            $table->unsignedBigInteger('rencana_keberangkatan')->nullable();
             $table->foreign('rencana_keberangkatan')->references('id_jadwal')->on('jadwal')->onDelete('cascade');
             // $table->string('pesawat');
             // $table->string('makkah');
             // $table->string('madinah');
             // $table->string('nama_hotel');
-            $table->string('pengalaman_umroh');
+            $table->string('pengalaman_umroh')->nullable();
             $table->string('terahir_tahun')->nullable();
-            $table->string('paket_umroh');
-            $table->string('program');
+            $table->string('paket_umroh')->nullable();
+            $table->string('program')->nullable();
 
             // data keluarga
             $table->string('nama_keluarga_ikut')->nullable();

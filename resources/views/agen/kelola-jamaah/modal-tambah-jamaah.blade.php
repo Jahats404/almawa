@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('sa.tambah.jamaah') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('agen.tambah.jamaah') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <h3 class="font-weight-bold text-primary">DATA PRIBADI</h3>
@@ -621,6 +621,7 @@
                                 @enderror
                             </div>
                         </div>
+                        
                         <!-- Pengalaman Umroh -->
                         <div class="form-group">
                             <label for="pengalaman_umroh">Pengalaman Umroh <span class="text-danger">*</span></label>
@@ -635,13 +636,31 @@
                         </div>
                         
                         <!-- Input untuk sudah pengalaman lainnya -->
-                        <div class="form-group">
+                        <div class="form-group" id="SudahPengalamanContainer" style="display: none;">
                             <label for="sudah_pengalaman">Terahir Tahun <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Jika ada pengalaman umroh">
                             @error('sudah_pengalaman')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+
+                        <script>
+                            // JavaScript untuk menampilkan/menghilangkan input teks
+                            document.getElementById('pengalaman_umroh').addEventListener('change', function () {
+                                const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer');
+                                if (this.value === 'Sudah') {
+                                    SudahPengalamanContainer.style.display = 'block';
+                                } else {
+                                    SudahPengalamanContainer.style.display = 'none';
+                                    document.getElementById('sudah_pengalaman').value = ''; // Reset input jika tidak dipilih
+                                }
+                            });
+                        
+                            // Menampilkan kembali input teks jika opsi "Lainnya" sudah dipilih sebelumnya (untuk edit form)
+                            if (document.getElementById('pengalaman_umroh').value === 'Sudah') {
+                                document.getElementById('SudahPengalamanContainer').style.display = 'block';
+                            }
+                        </script>
                         
                         <div class="form-row">
                             <!-- Paket Umroh -->

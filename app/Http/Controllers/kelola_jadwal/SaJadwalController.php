@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kelola_jadwal;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
+use App\Models\Paket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +14,7 @@ class SaJadwalController extends Controller
     public function index()
     {
         $jadwal = Jadwal::all();
+        
         return view('super-admin.jadwal.kelola-jadwal', compact('jadwal'));
     }
 

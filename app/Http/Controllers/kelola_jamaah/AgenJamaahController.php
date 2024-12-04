@@ -14,19 +14,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class SaJamaahController extends Controller
+class AgenJamaahController extends Controller
 {
     public function index()
     {
-        $jamaah = User::where('role_id', 6)
-        ->whereHas('jamaah', function ($query) {
-            $query->where('status', 'Diterima');
-        })
-        ->with('jamaah')->get();
+        $jamaah = Jamaah::whereIn('status', ['Diajukan', 'Ditolak'])
+        ->where('supervisor_id', Auth::id())->get();
+                        
         $jadwal = Jadwal::all();
         $paket = Paket::all();
+        // dd($jamaah);
         
-        return view('super-admin.pengguna.kelola-jamaah.kelola-jamaah', compact('jamaah', 'jadwal','paket'));
+        return view('agen.kelola-jamaah.kelola-jamaah', compact('jamaah', 'jadwal','paket'));
     }
 
     public function store_jamaah(Request $request)
@@ -115,14 +114,6 @@ class SaJamaahController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Membuat user baru
-        $user = new User();
-        $user->name = $request->nama_lengkap;
-        $user->email = $request->email;
-        $user->role_id = 6;
-        $user->password = Hash::make('12345678'); // Default password
-        $user->save();
-
         $jam = new Jamaah();
         $jam->id_pendaftaran = random_int(1000000, 9999999);
         $jam->ktp = $request->ktp;
@@ -181,8 +172,8 @@ class SaJamaahController extends Controller
         $jam->no_telp_keluarga_tinggal = $request->no_telp_keluarga_tinggal;
         $jam->alamat_keluarga_tinggal = $request->alamat_keluarga_tinggal;
 
-        $jam->status = 'Diterima';
-        $jam->user_id = $user->id;
+        $jam->status = 'Diajukan';
+        // $jam->user_id = Auth::user()->id;
         $jam->supervisor_id = Auth::user()->id;
 
         $jam->save();
@@ -279,14 +270,8 @@ class SaJamaahController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $user = User::find($jam->user_id);
-        $user->id = $request->ktp;
-        $user->name = $request->nama_lengkap;
-        $user->email = $request->email;
-        $user->save();
         
-        // $jam->ktp = $request->ktp;
+        $jam->ktp = $request->ktp;
         $jam->nama_lengkap = $request->nama_lengkap;
         $jam->nama_ayah_kandung = $request->nama_ayah_kandung;
         $jam->tempat_lahir = $request->tempat_lahir;
@@ -365,17 +350,13 @@ class SaJamaahController extends Controller
 
     public function pengajuan_jamaah()
     {
-        $jamaah = Jamaah::whereIn('status', ['Diajukan','Ditolak'])->get();
+        $jamaah = User::where('role_id', 5)
+        ->whereHas('jamaah', function ($query) {
+            $query->where('status', '!=', 'Diterima')
+                    ->orWhereNull('status');
+        })
+        ->with('jamaah')->get();
         
         return view('super-admin.pengguna.kelola-jamaah.pengajuan-jammah', compact('jamaah'));
-    }
-
-    public function ubah_status_jamaah(Request $request, $id)
-    {
-        $agen = Jamaah::findOrFail($id);
-        $agen->status = $request->status;
-        $agen->save();
-
-        return redirect()->back()->with('success', 'Status berhasil diubah');
     }
 }

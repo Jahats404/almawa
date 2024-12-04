@@ -60,4 +60,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Jamaah::class, 'user_id', 'id');
     }
+    public function paket()
+    {
+        return $this->hasMany(Paket::class, 'user_id', 'id');
+    }
 }

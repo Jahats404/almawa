@@ -51,8 +51,8 @@
                                 <div class="form-group">
                                     <select class="form-control form-control-file" aria-placeholder="Role" title="role" name="role_id" id="role">
                                         <option value="">-- Pilih Register Sebagai --</option>
-                                        <option value="5">Agen</option>
-                                        <option value="6">Jamaah</option>
+                                        <option value="5" {{ old('role_id') == '5' ? 'selected' : '' }}>Agen</option>
+                                        <option value="6" {{ old('role_id') == '6' ? 'selected' : '' }}>Jamaah</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -65,7 +65,7 @@
                                 <hr>
                             </form>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Lupa Password?</a>
+                                <a class="small" href="{{ route('forget.password.get') }}">Lupa Password?</a>
                             </div>
                             <div class="text-center">
                                 <a class="small" href="{{ route('login') }}">Sudah memiliki Akun? Login!</a>

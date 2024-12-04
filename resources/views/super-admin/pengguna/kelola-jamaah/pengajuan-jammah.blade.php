@@ -3,20 +3,17 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Daftar Jamaah</h1>
+        <h1 class="h3 mb-0 text-gray-800">Daftar Permintaan Jamaah</h1>
     </div>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Jamaah</h6>
-            <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
-                <i class="fas fa-solid fa-clock fa-sm text-white-50"></i> Tambah Jamaah
-            </button>
+            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Permintaan Jamaah</h6>
         </div>
 
         <!-- Modal Tambah -->
-        @include('super-admin.pengguna.kelola-jamaah.modal-tambah-jamaah')
+        {{-- @include('super-admin.pengguna.kelola-jamaah.modal-tambah-jamaah') --}}
 
         <div class="card-body">
             <div class="table-responsive">
@@ -24,7 +21,6 @@
                     <thead>
                         <tr class="text-center">
                             <th>No</th>
-                            <th>ID Pendaftaran</th>
                             <th>No KTP</th>
                             <th>Nama Lengkap</th>
                             {{-- <th>Tanggal Lahir</th> --}}
@@ -32,6 +28,7 @@
                             <th>Jenis Kelamin</th>
                             <th>Pekerjaan</th>
                             <th>Ordal</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -39,23 +36,47 @@
                         @foreach ($jamaah as $item)
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->jamaah->id_pendaftaran }}</td>
-                                <td>{{ $item->jamaah->ktp }}</td>
-                                <td>{{ $item->jamaah->nama_lengkap }}</td>
-                                {{-- <td>{{ \Carbon\Carbon::parse($item->jamaah->tanggal_lahir)->locale('id')->isoFormat('D MMMM YYYY') }}</td> --}}
-                                <td>{{ $item->jamaah->umur }}</td>
-                                <td>{{ $item->jamaah->jenis_kelamin }}</td>
-                                <td>{{ $item->jamaah->pekerjaan }}</td>
-                                <td>{{ $item->jamaah->supervisor->name ?? '-' }}</td>
+                                <td>{{ $item->ktp }}</td>
+                                <td>{{ $item->nama_lengkap }}</td>
+                                {{-- <td>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->locale('id')->isoFormat('D MMMM YYYY') }}</td> --}}
+                                <td>{{ $item->umur }}</td>
+                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>{{ $item->pekerjaan }}</td>
+                                <td>{{ $item->supervisor->name ?? '-' }}</td>
+                                <td>
+                                    @if ($item->status == 'Ditolak')
+                                        <span class="badge badge-danger">{{ $item->status }}</span>
+                                    @elseif ($item->status == 'Diajukan')
+                                        <span class="badge badge-info">{{ $item->status }}</span>
+                                    @elseif ($item->status == 'Diterima')
+                                        <span class="badge badge-success">{{ $item->status }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="{{ route('sa.detail.jamaah', ['id' => $item->jamaah->id_pendaftaran]) }}" class="btn btn-success btn-circle btn-sm mr-2" title="Detail">
+                                        <a href="{{ route('sa.detail.jamaah', ['id' => $item->id_pendaftaran]) }}" class="btn btn-success btn-circle btn-sm mr-2" title="Detail">
                                             <i class="fas fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->jamaah->id_pendaftaran }}" title="Update">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </a>
-                                        <form action="{{ route('sa.delete.jamaah', ['id' => $item->jamaah->id_pendaftaran]) }}" method="POST" class="delete-form">
+                                        <div class="btn-group mr-2">
+                                            <button type="button" title="Aksi" class="btn btn-info btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-solid fa-spinner"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <form action="{{ route('sa.ubah.status.jamaah', ['id' => $item->id_pendaftaran]) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="status" value="Diterima">
+                                                    <button class="dropdown-item" type="submit">Terima</button>
+                                                </form>
+                                                <form action="{{ route('sa.ubah.status.jamaah', ['id' => $item->id_pendaftaran]) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="status" value="Ditolak">
+                                                    <button class="dropdown-item" type="submit">Tolak</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <form action="{{ route('sa.delete.jamaah', ['id' => $item->id_pendaftaran]) }}" method="POST" class="delete-form">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
@@ -94,7 +115,7 @@
                             </script>
 
                             <!-- Modal Edit -->
-                            @include('super-admin.pengguna.kelola-jamaah.modal-update-jamaah', ['item' => $item->jamaah])
+                            {{-- @include('super-admin.pengguna.kelola-jamaah.modal-update-jamaah', ['item' => $item]) --}}
                         @endforeach
                     </tbody>
                 </table>

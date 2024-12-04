@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalEdit{{ $item->ktp }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalEdit{{ $item->id_pendaftaran }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
                 </button>
             </div>
             
-            <form action="{{ route('sa.update.jamaah', ['id' => $item->ktp]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('sa.update.jamaah', ['id' => $item->id_pendaftaran]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="modal-body">
@@ -418,15 +418,15 @@
                             <label for="pendidikan_terahir">Pilih Pendidikan Terahir <span class="text-muted font-italic text-gray-500">(Tidak Wajib)</span></label>
                             <select class="form-control" name="pendidikan_terahir" id="pendidikan_terahir">
                                 <option value="">-- Pilih Pendidikan Terahir --</option>
-                                <option value="SD" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SD' ? 'selected' : '' }}>SD</option>
-                                <option value="SLTP" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
-                                <option value="SMU" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SMU' ? 'selected' : '' }}>SMU</option>
-                                <option value="D1/D2" {{ old('pekerjaan', $item->pendidikan ?? '') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
-                                <option value="SM/D3" {{ old('pekerjaan', $item->pendidikan ?? '') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
-                                <option value="S1" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
-                                <option value="S2" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
-                                <option value="S3" {{ old('pekerjaan', $item->pendidikan ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
-                                <option value="PNS" {{ old('pekerjaan', $item->pendidikan ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
+                                <option value="SD" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SD' ? 'selected' : '' }}>SD</option>
+                                <option value="SLTP" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SLTP' ? 'selected' : '' }}>SLTP</option>
+                                <option value="SMU" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SMU' ? 'selected' : '' }}>SMU</option>
+                                <option value="D1/D2" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'D1/D2' ? 'selected' : '' }}>D1/D2</option>
+                                <option value="SM/D3" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'SM/D3' ? 'selected' : '' }}>SM/D3</option>
+                                <option value="S1" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
+                                <option value="S2" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
+                                <option value="S3" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
+                                <option value="PNS" {{ old('pekerjaan', $item->pendidikan_terahir ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
 
                             </select>
                             @error('pekerjaan')
@@ -532,97 +532,162 @@
                         </div>
                     </div>
 
-                    <h3 class="font-weight-bold text-primary">DATA KEBERANGKATAN</h3>
+                    <h3 class="font-weight-bold text-primary">PAKET</h3>
                     <hr>
-
                     <div class="form-row">
-                        <!-- rencana_keberangkatan -->
+                        <!-- paket -->
                         <div class="form-group col-md-12">
-                            <label for="rencana_keberangkatan">Rencana Keberangkatan <span class="text-danger">*</span></label>
-                            <select class="form-control" name="rencana_keberangkatan" id="rencana_keberangkatan">
-                                <option value="">-- Pilih Rencana Keberangkatan --</option>
-                                @foreach ($jadwal as $jad)
+                            <label for="paket">Pilih Paket <span class="text-danger">*</span></label>
+                            <select class="form-control" name="paket_id" id="paket_formUpdate">
+                                <option value="">-- Pilih Paket --</option>
+                                @foreach ($paket as $pakets)
                                     <option 
-                                        value="{{ $jad->id_jadwal }}" 
-                                        {{ old('rencana_keberangkatan', $item->rencana_keberangkatan ?? '') == $jad->id_jadwal ? 'selected' : '' }}>
-                                        {{ \Carbon\Carbon::parse($jad->jadwal)->translatedFormat('d F Y, H:i') . ' | Pesawat : ' . ($jad->pesawat ?? '-') . ' | Makkah : ' . ($jad->makkah ?? '-') . ' | Madinah : ' . ($jad->madinah ?? '-') }}
+                                        value="{{ $pakets->id_paket }}" 
+                                        {{ old('rencana_keberangkatan', $item->paket_id ?? '-') == $pakets->id_paket ? 'selected' : '' }}>
+                                        {{ $pakets->nama_paket }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('rencana_keberangkatan')
+                            @error('paket_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
+                    <hr>
 
-                    <!-- Pengalaman Umroh -->
-                    <div class="form-group">
-                        <label for="pengalaman_umroh">Pengalaman Umroh <span class="text-danger">*</span></label>
-                        <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh_update">
-                            <option value="">-- Pilih --</option>
-                            <option value="Belum Pernah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Belum Pernah' ? 'selected' : '' }}>Belum Pernah</option>
-                            <option value="Sudah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
-                        </select>
-                        @error('pengalaman_umroh')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
+                    <div class="d-flex">
+                        <p class="text-info font-weight-bold">Data Keberangkatan <span class="font-italic font-weight-normal">(Tidak Wajib)</span></p>
                     </div>
-                    
-                    <!-- Input untuk sudah pengalaman lainnya -->
-                    <div class="form-group" id="SudahPengalamanContainer_update" style="display: none;">
-                        <label for="sudah_pengalaman">Terahir Tahun <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman_update" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Terahir Taun">
-                        @error('sudah_pengalaman')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    
-                    <script>
-                        // JavaScript untuk menampilkan/menghilangkan input teks
-                        document.getElementById('pengalaman_umroh_update').addEventListener('change', function () {
-                            const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer_update');
-                            if (this.value === 'Sudah') {
-                                SudahPengalamanContainer.style.display = 'block';
-                            } else {
-                                SudahPengalamanContainer.style.display = 'none';
-                                document.getElementById('sudah_pengalaman_update').value = ''; // Reset input jika tidak dipilih
-                            }
-                        });
-                    
-                        // Menampilkan kembali input teks jika opsi "Lainnya" sudah dipilih sebelumnya (untuk edit form)
-                        if (document.getElementById('pengalaman_umroh_update').value === 'Sudah') {
-                            document.getElementById('SudahPengalamanContainer_update').style.display = 'block';
-                        }
-                    </script>
-                    
+
+                    <!-- Paspor -->
                     <div class="form-row">
-                        <!-- Paket Umroh -->
-                        <div class="form-group col-md-6">
-                            <label for="paket_umroh">Paket Umroh yang dipilih <span class="text-danger">*</span></label>
-                            <select class="form-control" name="paket_umroh" id="paket_umroh">
-                                <option value="">-- Pilih --</option>
-                                <option value="Sekamar Berdua" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
-                                <option value="Sekamar Bertiga" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
-                                <option value="Sekamar Berempat" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
+                        <div class="form-group col-md-12">
+                            <label for="Paspor">Paspor <span class="text-danger">*</span></label>
+                            <select class="form-control" name="paspor" id="role">
+                                <option value="">-- Pilih Paspor --</option>
+                                    <option value="Memiliki" {{ old('paspor', $item->paspor ?? '-') == 'Memiliki' ? 'selected' : '' }}>Memiliki</option>
+                                    <option value="Tidak Memiliki" {{ old('paspor', $item->paspor ?? '-') == 'Tidak Memiliki' ? 'selected' : '' }}>Tidak Memiliki</option>
                             </select>
-                            @error('paket_umroh')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-
-                        <!-- Program -->
-                        <div class="form-group col-md-6">
-                            <label for="program">Program <span class="text-danger">*</span></label>
-                            <select class="form-control" name="program" id="program">
-                                <option value="">-- Pilih Program --</option>
-                                <option value="Sembilan Hari" {{ old('program', $item->program ?? '') == 'Sembilan Hari' ? 'selected' : '' }}>Sembilan Hari</option>
-                                <option value="Dua Belas Hari" {{ old('program', $item->program ?? '') == 'Dua Belas Hari' ? 'selected' : '' }}>Dua Belas Hari</option>
-                            </select>
-                            @error('program')
+                            @error('paspor')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
+
+                    <!-- Tambahkan wrapper untuk inputan selain paspor -->
+                    <div id="form-lanjutan_formUpdate">
+                        <div class="form-row">
+                            <!-- rencana_keberangkatan -->
+                            <div class="form-group col-md-12">
+                                <label for="rencana_keberangkatan">Rencana Keberangkatan <span class="text-danger">*</span></label>
+                                <select class="form-control" name="rencana_keberangkatan" id="rencana_keberangkatan">
+                                    <option value="">-- Pilih Rencana Keberangkatan --</option>
+                                    @foreach ($jadwal as $jad)
+                                        <option 
+                                            value="{{ $jad->id_jadwal }}" 
+                                            {{ old('rencana_keberangkatan', $item->rencana_keberangkatan ?? '') == $jad->id_jadwal ? 'selected' : '' }}>
+                                            {{ \Carbon\Carbon::parse($jad->jadwal)->translatedFormat('d F Y, H:i') . ' | Pesawat : ' . ($jad->pesawat ?? '-') . ' | Makkah : ' . ($jad->makkah ?? '-') . ' | Madinah : ' . ($jad->madinah ?? '-') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('rencana_keberangkatan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+    
+                        <!-- Pengalaman Umroh -->
+                        <div class="form-group">
+                            <label for="pengalaman_umroh">Pengalaman Umroh <span class="text-danger">*</span></label>
+                            <select class="form-control" name="pengalaman_umroh" id="pengalaman_umroh_update">
+                                <option value="">-- Pilih --</option>
+                                <option value="Belum Pernah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Belum Pernah' ? 'selected' : '' }}>Belum Pernah</option>
+                                <option value="Sudah" {{ old('pengalaman_umroh', $item->pengalaman_umroh ?? '') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
+                            </select>
+                            @error('pengalaman_umroh')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        
+                        <!-- Input untuk sudah pengalaman lainnya -->
+                        <div class="form-group" id="SudahPengalamanContainer_update" style="display: none;">
+                            <label for="sudah_pengalaman">Terahir Tahun <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="sudah_pengalaman" id="sudah_pengalaman_update" value="{{ old('sudah_pengalaman', $item->terahir_tahun) }}" placeholder="Terahir Taun">
+                            @error('sudah_pengalaman')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        
+                        <script>
+                            // JavaScript untuk menampilkan/menghilangkan input teks
+                            document.getElementById('pengalaman_umroh_update').addEventListener('change', function () {
+                                const SudahPengalamanContainer = document.getElementById('SudahPengalamanContainer_update');
+                                if (this.value === 'Sudah') {
+                                    SudahPengalamanContainer.style.display = 'block';
+                                } else {
+                                    SudahPengalamanContainer.style.display = 'none';
+                                    document.getElementById('sudah_pengalaman_update').value = ''; // Reset input jika tidak dipilih
+                                }
+                            });
+                        
+                            // Menampilkan kembali input teks jika opsi "Lainnya" sudah dipilih sebelumnya (untuk edit form)
+                            if (document.getElementById('pengalaman_umroh_update').value === 'Sudah') {
+                                document.getElementById('SudahPengalamanContainer_update').style.display = 'block';
+                            }
+                        </script>
+                        
+                        <div class="form-row">
+                            <!-- Paket Umroh -->
+                            <div class="form-group col-md-6">
+                                <label for="paket_umroh">Paket Umroh yang dipilih <span class="text-danger">*</span></label>
+                                <select class="form-control" name="paket_umroh" id="paket_umroh">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Sekamar Berdua" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berdua' ? 'selected' : '' }}>Sekamar Berdua</option>
+                                    <option value="Sekamar Bertiga" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Bertiga' ? 'selected' : '' }}>Sekamar Bertiga</option>
+                                    <option value="Sekamar Berempat" {{ old('paket_umroh', $item->paket_umroh ?? '') == 'Sekamar Berempat' ? 'selected' : '' }}>Sekamar Berempat</option>
+                                </select>
+                                @error('paket_umroh')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+    
+                            <!-- Program -->
+                            <div class="form-group col-md-6">
+                                <label for="program">Program <span class="text-danger">*</span></label>
+                                <select class="form-control" name="program" id="program">
+                                    <option value="">-- Pilih Program --</option>
+                                    <option value="Sembilan Hari" {{ old('program', $item->program ?? '') == 'Sembilan Hari' ? 'selected' : '' }}>Sembilan Hari</option>
+                                    <option value="Dua Belas Hari" {{ old('program', $item->program ?? '') == 'Dua Belas Hari' ? 'selected' : '' }}>Dua Belas Hari</option>
+                                </select>
+                                @error('program')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const paketSelect = document.getElementById('paket_formUpdate');
+                            const formLanjutan = document.getElementById('form-lanjutan_formUpdate');
+                    
+                            function toggleFormLanjutan() {
+                                const selectedValue = paketSelect.value;
+                                if (selectedValue === '3' || selectedValue === '4') {
+                                    formLanjutan.style.display = 'none'; // Sembunyikan
+                                } else {
+                                    formLanjutan.style.display = 'block'; // Tampilkan
+                                }
+                            }
+                    
+                            // Panggil fungsi saat halaman dimuat
+                            toggleFormLanjutan();
+                    
+                            // Tambahkan event listener untuk perubahan nilai
+                            paketSelect.addEventListener('change', toggleFormLanjutan);
+                        });
+                    </script>
+
+                    
 
                     <hr>
                     <h3 class="font-weight-bold text-primary">DATA KELUARGA</h3>

@@ -1,13 +1,25 @@
-<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('sa.tambah.jamaah') }}" method="POST" enctype="multipart/form-data">
+@extends('layouts.master')
+
+@section('content')
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Pendaftaran Jamaah</h1>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-wrap align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Pendaftaran Jamaah</h6>
+            <a href="{{ route('jamaah.dashboard') }}" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0">
+                <i class="fas fa-solid fa-arrow-left fa-sm text-white-50"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Modal Tambah -->
+        {{-- @include('super-admin.pengguna.kelola-jamaah.modal-tambah-jamaah') --}}
+
+        <div class="card-body">
+            <form action="{{ route('jamaah.pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <h3 class="font-weight-bold text-primary">DATA PRIBADI</h3>
@@ -30,8 +42,7 @@
                             <label for="exampleInputEmail1">Alamat Email</label>
                             <input 
                                 type="email" 
-                                name="email" 
-                                placeholder="Tidak Wajib"
+                                name="email"
                                 value="{{ old('email') }}" 
                                 class="form-control" 
                                 id="exampleInputEmail1">
@@ -569,7 +580,7 @@
                                 @foreach ($paket as $item)
                                     <option 
                                         value="{{ $item->id_paket }}" 
-                                        {{ old('rencana_keberangkatan') == $item->id_paket ? 'selected' : '' }}>
+                                        {{ old('paket_id') == $item->id_paket ? 'selected' : '' }}>
                                         {{ $item->nama_paket }}
                                     </option>
                                 @endforeach
@@ -671,13 +682,14 @@
                                 @enderror
                             </div>
                         </div>
+
                     </div>
-                    
+
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             const paketSelect = document.getElementById('paket');
                             const formLanjutan = document.getElementById('form-lanjutan');
-                    
+
                             function toggleFormLanjutan() {
                                 const selectedValue = paketSelect.value;
                                 if (selectedValue === '3' || selectedValue === '4') {
@@ -686,10 +698,10 @@
                                     formLanjutan.style.display = 'block'; // Tampilkan
                                 }
                             }
-                    
+
                             // Panggil fungsi saat halaman dimuat
                             toggleFormLanjutan();
-                    
+
                             // Tambahkan event listener untuk perubahan nilai
                             paketSelect.addEventListener('change', toggleFormLanjutan);
                         });
@@ -751,7 +763,7 @@
                     <div class="form-row">
                         <!-- Nama Keluarga Ditinggal -->
                         <div class="form-group col-md-4">
-                            <label for="name">Nama Keluarga Ditinggal</label>
+                            <label for="name">Nama Keluarga Ditinggal <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
                                 name="nama_keluarga_tinggal" 
@@ -764,7 +776,7 @@
                         </div>
                         <!-- Hubungan -->
                         <div class="form-group col-md-4">
-                            <label for="name">Hubungan</label>
+                            <label for="name">Hubungan <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
                                 name="hubungan_keluarga_tinggal" 
@@ -777,7 +789,7 @@
                         </div>
                         <!-- Telp -->
                         <div class="form-group col-md-4">
-                            <label for="name">Telp</label>
+                            <label for="name">Telp <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
                                 name="no_telp_keluarga_tinggal" 
@@ -802,7 +814,10 @@
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
-            
         </div>
     </div>
-</div>
+
+
+    @include('validasi.notifikasi')
+    @include('validasi.notifikasi-error')
+@endsection

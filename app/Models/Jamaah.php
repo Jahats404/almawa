@@ -9,7 +9,7 @@ class Jamaah extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'ktp';
+    protected $primaryKey = 'id_pendaftaran';
     protected $table = 'jamaah';
     protected $guarded = [];
 
@@ -24,7 +24,11 @@ class Jamaah extends Model
     }
     public function jadwal()
     {
-        return $this->belongsTo(Jadwal::class, 'jadwal_id', 'id_jadwal');
+        return $this->belongsTo(Jadwal::class, 'rencana_keberangkatan', 'id_jadwal');
+    }
+    public function paket()
+    {
+        return $this->belongsTo(Paket::class, 'paket_id', 'id_paket');
     }
 
 
@@ -140,8 +144,12 @@ class Jamaah extends Model
     'no_telp_perusahaan.max' => 'Nomor telepon perusahaan tidak boleh lebih dari 15 karakter.',
 
     // Data Keberangkatan
+    'paket_id.required' => 'Paket wajib diisi.',
+    'paket_id.exists' => 'Paket yang dipilih tidak valid atau tidak ditemukan.',
+    'paspor.required' => 'Paspor wajib diisi.',
     'rencana_keberangkatan.required' => 'Rencana keberangkatan wajib diisi.',
     'rencana_keberangkatan.date' => 'Rencana keberangkatan harus berupa tanggal yang valid.',
+    'rencana_keberangkatan.exists' => 'Rencana keberangkatan yang dipilih tidak valid atau tidak ditemukan.',
 
     'pesawat.required' => 'Nama pesawat wajib diisi.',
     'pesawat.string' => 'Nama pesawat harus berupa teks.',

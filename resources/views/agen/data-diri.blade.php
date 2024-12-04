@@ -9,8 +9,11 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex">
-                <h6 class="m-0 font-weight-bold text-primary">Lengkapi Data</h6>
+            <div class="card-header py-3 d-flex flex-wrap align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Lengkapi Data</h6>
+                <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0">
+                    <i class="fas fa-solid fa-arrow-left fa-sm text-white-50"></i> Kembali
+                </a>
             </div>
         </div>
 
@@ -22,7 +25,7 @@
                     <h3 class="font-weight-bold text-primary">DATA PRIBADI</h3>
                     <hr>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="name">No Registrasi Agen <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
@@ -33,10 +36,10 @@
                             @error('no_registrasi')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                         
                         <!-- No KTP -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">No KTP <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 

@@ -9,10 +9,11 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex">
-                <h6 class="m-0 font-weight-bold text-primary">Detail Agen</h6>
-                <a href="{{ route('sa.kelola.agen') }}" class="d-none ml-auto d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-solid fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
+            <div class="card-header py-3 d-flex flex-wrap align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Detail Agen</h6>
+                <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0">
+                    <i class="fas fa-solid fa-arrow-left fa-sm text-white-50"></i> Kembali
+                </a>
             </div>
         </div>
 

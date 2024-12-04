@@ -27,7 +27,7 @@
                             <th>Umur</th>
                             <th>Jenis Kelamin</th>
                             <th>Pekerjaan</th>
-                            <th>Ordal</th>
+                            <th>Rekomendasi</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -45,7 +45,7 @@
                                 <td>{{ $item->agen->pekerjaan }}</td>
                                 <td>{{ $item->agen->supervisor->name ?? '-' }}</td>
                                 <td>
-                                    @if ($item->agen->status == 'Pending')
+                                    @if ($item->agen->status == 'Diajukan')
                                         <span class="badge badge-info">{{ $item->agen->status }}</span>
                                     @elseif ($item->agen->status == 'Ditolak')
                                         <span class="badge badge-danger">{{ $item->agen->status }}</span>
