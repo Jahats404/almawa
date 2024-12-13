@@ -8,7 +8,12 @@ use App\Http\Controllers\kelola_agen\SaAgenController;
 use App\Http\Controllers\kelola_jadwal\SaJadwalController;
 use App\Http\Controllers\kelola_jamaah\AgenJamaahController;
 use App\Http\Controllers\kelola_jamaah\SaJamaahController;
+use App\Http\Controllers\kelola_rekening\KeuanganRekeningController;
 use App\Http\Controllers\paket\SaPaketController;
+use App\Http\Controllers\pembayaran\AgenJamaahPembayaranController;
+use App\Http\Controllers\pembayaran\JamaahPembayaranController;
+use App\Http\Controllers\pembayaran\SaJamaahPembayaranController;
+use App\Http\Controllers\pendaftaran\JamaahPendaftaranController;
 use App\Http\Controllers\pendaftaran\PendaftaranController;
 use App\Http\Controllers\pengguna\AgenController;
 use App\Http\Controllers\pengguna\PenggunaController;
@@ -84,6 +89,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengajuan-jamaah', [SaJamaahController::class, 'pengajuan_jamaah'])->name('pengajuan.jamaah');
         Route::put('/ubah-status-jamaah/{id}', [SaJamaahController::class, 'ubah_status_jamaah'])->name('ubah.status.jamaah');
 
+        //PEMBAYARAN JAMAAH
+        Route::get('/pembayaran-jamaah/{id}', [SaJamaahPembayaranController::class, 'index'])->name('pembayaran.jamaah');
+        Route::post('/pembayaran-jamaah/store', [SaJamaahPembayaranController::class, 'store'])->name('store.pembayaran.jamaah');
+        Route::put('/status-pembayaran-jamaah/{id}', [SaJamaahPembayaranController::class, 'ubah_status'])->name('status.pembayaran.jamaah');
+
         //PAKET
         Route::get('/kelola-paket', [SaPaketController::class, 'index'])->name('kelola.paket');
         Route::post('/tambah-paket', [SaPaketController::class, 'store'])->name('tambah.paket');
@@ -91,10 +101,24 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete-paket/{id}', [SaPaketController::class, 'delete'])->name('delete.paket');
     });
 
+    // ========= ADMIN ===============
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
         
     });
 
+    // ========= KEUANGAN ===============
+    Route::prefix('keuangan')->name('keuangan.')->middleware('CekUserLogin:3')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard_keuangan'])->name('dashboard');        
+
+        //KELOLA REKENING
+        Route::get('/kelola-rekening', [KeuanganRekeningController::class, 'index'])->name('kelola.rekening');
+        Route::post('/tambah-rekening', [KeuanganRekeningController::class, 'store'])->name('tambah.rekening');
+        Route::put('/update-rekening/{id}', [KeuanganRekeningController::class, 'update'])->name('update.rekening');
+        Route::delete('/destroy-rekening/{id}', [KeuanganRekeningController::class, 'destroy'])->name('destroy.rekening');
+    });
+
+
+    // ========= MARKETING ===============
     Route::prefix('marketing')->name('marketing.')->middleware('CekUserLogin:4')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -109,6 +133,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
+    // ========= AGEN ===============
     Route::prefix('agen')->name('agen.')->middleware('CekUserLogin:5')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard_agen'])->name('dashboard');
 
@@ -124,18 +149,28 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/detail-jamaah/{id}', [AgenJamaahController::class, 'detail'])->name('detail.jamaah');
         Route::delete('/delete-jamaah/{id}', [AgenJamaahController::class, 'delete'])->name('delete.jamaah');
         Route::get('/pengajuan-jamaah', [AgenJamaahController::class, 'pengajuan_jamaah'])->name('pengajuan.jamaah');
+
+        //PEMBAYARAN JAMAAH
+        Route::get('/pembayaran-jamaah/{id}', [AgenJamaahPembayaranController::class, 'index'])->name('pembayaran.jamaah');
+        Route::post('/pembayaran-jamaah/store', [AgenJamaahPembayaranController::class, 'store'])->name('store.pembayaran.jamaah');
     });
 
 
+    // ========= JAMAAH ===============
     Route::prefix('jamaah')->name('jamaah.')->middleware('CekUserLogin:6')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard_jamaah'])->name('dashboard');
 
-        // PENDAFTARAN
+        // DASHBOARD PENDAFTARAN 
         Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
         Route::post('/pendaftaran-store', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
         Route::put('/pendaftaran-update/{id}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
-        Route::get('/pendaftaran-detail/{id}', [PendaftaranController::class, 'detail'])->name('pendaftaran.detail');
+        // Route::get('/pendaftaran-detail/{id}', [PendaftaranController::class, 'detail'])->name('pendaftaran.detail');
         Route::delete('/pendaftaran-delete/{id}', [PendaftaranController::class, 'delete'])->name('pendaftaran.delete');
+
+        Route::get('/list-pendaftaran', [JamaahPendaftaranController::class, 'index'])->name('list.pendaftaran');
+        Route::get('/pendaftaran-detail/{id}', [JamaahPendaftaranController::class, 'detail_pendaftaran'])->name('pendaftaran.detail');
+        Route::get('/pembayaran-detail/{id}', [JamaahPembayaranController::class, 'index'])->name('pembayaran.detail');
+        Route::post('/pembayaran-store', [JamaahPembayaranController::class, 'store'])->name('pembayaran.store');
         
         // LENGKAPI DATA
         // Route::get('/lengkapi-data', [AgenController::class, 'lengkapi_data'])->name('lengkapi.data');

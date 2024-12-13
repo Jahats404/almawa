@@ -64,4 +64,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Paket::class, 'user_id', 'id');
     }
+    public function detail_pembayaran_jamaah()
+    {
+        return $this->hasMany(DetailPembayaranJamaah::class, 'user_id','id');
+    }
+    public function validator()
+    {
+        return $this->hasMany(DetailPembayaranJamaah::class, 'validator_id','id');
+    }
 }

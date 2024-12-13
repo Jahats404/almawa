@@ -79,6 +79,11 @@
             <i class="fas fa-regular fa-user"></i>
             <span>Daftar Jamaah</span></a>
     </li>
+    <li class="nav-item {{ Request::routeIs('sa.kelola.jamaah') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('sa.kelola.jamaah') }}">
+            <i class="fas fa-comments-dollar fa-user"></i>
+            <span>Pembayaran Jamaah</span></a>
+    </li>
     <li class="nav-item {{ Request::routeIs('sa.kelola.agen') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('sa.kelola.agen') }}">
             <i class="fas fa-regular fa-user"></i>
@@ -88,6 +93,32 @@
         <a class="nav-link" href="{{ route('sa.pengajuan.jamaah') }}">
             <i class="fas fa-regular fa-users"></i>
             <span>Permintaan Jamaah</span></a>
+    </li>
+    @endif
+
+
+    @if (Auth::user()->role_id == 3)
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ Request::routeIs('keuangan.dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keuangan.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Rekening
+    </div>
+
+    <!-- Nav Item - Pendaftaran -->
+    <li class="nav-item {{ Request::routeIs('keuangan.kelola.rekening') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keuangan.kelola.rekening') }}">
+            <i class="fas fa-fw fa-solid fa-funnel-dollar"></i>
+            <span>Kelola Rekening</span></a>
     </li>
     @endif
 
@@ -305,15 +336,22 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Pendaftaran
     </div>
+
+    <!-- Nav Item - Pendaftaran -->
+    <li class="nav-item {{ Request::routeIs('jamaah.list.pendaftaran') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('jamaah.list.pendaftaran') }}">
+            <i class="fas fa-fw fa-solid fa-kaaba"></i>
+            <span>List Pendaftaran</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+            <span></span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">

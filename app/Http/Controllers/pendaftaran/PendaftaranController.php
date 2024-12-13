@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\pendaftaran;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPembayaranJamaah;
 use App\Models\Jadwal;
 use App\Models\Jamaah;
 use App\Models\Paket;
+use App\Models\PembayaranJamaah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -330,6 +332,42 @@ class PendaftaranController extends Controller
     public function detail($id)
     {
         $jamaah = Jamaah::find($id);
+        
+        $cekPembayaran = PembayaranJamaah::where('jamaah_id', $jamaah->id_pendaftaran)->first();
+        if ($cekPembayaran == NULL) {
+            $pembayaran = new PembayaranJamaah();
+            $pembayaran->id_pembayaran = random_int(1000000, 9999999);
+            $pembayaran->jumlah_bayar = $jamaah->paket->harga;
+            $pembayaran->status = 'Belum Bayar';
+            $pembayaran->jamaah_id = $jamaah->id_pendaftaran;
+            $pembayaran->save();
+        }
+        elseif ($jamaah->pembayaran_jamaah) {
+            
+            $pembayaran = PembayaranJamaah::find($jamaah->pembayaran_jamaah->id_pembayaran);
+            
+            $totalJumlahDiterima = DetailPembayaranJamaah::where('pembayaran_id', $jamaah->pembayaran_jamaah->id_pembayaran)
+                ->where('status', 'Diterima')
+                ->sum('jumlah');
+
+            // CEK SUDAH BAYAR
+            $cekPembayaran = DetailPembayaranJamaah::where('pembayaran_id', $jamaah->pembayaran_jamaah->id_pembayaran)
+                        ->where('status', 'Diterima')->first();
+            
+            // KONVERSI KE INT
+            $totalJumlahDiterima = (int) $totalJumlahDiterima; 
+            
+            // CEK JIKA SUDAH LUNAS
+            if ($jamaah->pembayaran_jamaah->jumlah_bayar <= $totalJumlahDiterima) {
+                $pembayaran->status = 'Lunas';
+                
+            } elseif ($cekPembayaran) {
+                $pembayaran->status = 'Belum Lunas';
+                
+            }
+            $pembayaran->save();
+
+        }
 
         return view('super-admin.pengguna.kelola-jamaah.detail-jamaah', compact('jamaah'));
     }

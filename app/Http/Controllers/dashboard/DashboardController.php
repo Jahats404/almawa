@@ -26,13 +26,18 @@ class DashboardController extends Controller
         
         return view('dashboard.agen-dashboard', compact('cek', 'diajukan','diterima','ditolak'));
     }
+    public function dashboard_keuangan()
+    {
+        return view('dashboard.keuangan-dashboard');
+    }
     public function dashboard_jamaah()
     {
         $cek = Jamaah::where('user_id', Auth::user()->id)->first();
+        $cekStatus = Jamaah::where('user_id', Auth::user()->id)->where('status','Diterima')->first();
         $jadwal = Jadwal::where('status', 'Disetujui')->get();
         $list = Jamaah::where('user_id', Auth::user()->id)->get();
         $paket = Paket::all();
         
-        return view('dashboard.jamaah-dashboard', compact('cek', 'jadwal','list', 'paket'));
+        return view('dashboard.jamaah-dashboard', compact('cek', 'jadwal','list', 'paket','cekStatus'));
     }
 }

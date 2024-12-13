@@ -22,11 +22,11 @@ class UserSeeder extends Seeder
             'password' => Hash::make(12345),
             'role_id' => '1',
         ]);
-        // User::create([
-        //     'name' => 'tekotok',
-        //     'email' => 'tekotok@gmail.com',
-        //     'password' => Hash::make(12345),
-        //     'role_id' => '2',
-        // ]);
+        User::create([
+            'name' => 'siti',
+            'email' => 'siti@gmail.com',
+            'password' => Hash::make(12345),
+            'role_id' => '3',
+        ]);
     }
 }

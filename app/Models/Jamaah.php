@@ -30,6 +30,14 @@ class Jamaah extends Model
     {
         return $this->belongsTo(Paket::class, 'paket_id', 'id_paket');
     }
+    public function pembayaran_jamaah()
+    {
+        return $this->hasOne(PembayaranJamaah::class, 'jamaah_id', 'id_pendaftaran');
+    }
+    public function progress()
+    {
+        return $this->hasOne(Progress::class,'jamaah_id','id_pendaftaran');
+    }
 
 
 
