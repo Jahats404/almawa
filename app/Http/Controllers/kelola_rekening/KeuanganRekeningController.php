@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\kelola_rekening;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPembayaranJamaah;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -66,4 +67,6 @@ class KeuanganRekeningController extends Controller
 
         return redirect()->back()->with('success', 'Rekening berhasil dihapus');
     }
+
+    
 }

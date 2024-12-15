@@ -14,4 +14,8 @@ class Rekening extends Model
     protected $guaraded = [];
     protected $casts = ['id_rekening' => 'string'];
     
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class,'rekening_id','id_rekening');
+    }
 }

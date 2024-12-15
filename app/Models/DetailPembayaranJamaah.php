@@ -25,4 +25,8 @@ class DetailPembayaranJamaah extends Model
     {
         return $this->belongsTo(User::class, 'validator_id','id');
     }
+    public function transaksi()
+    {
+        return $this->hasOne(Transaksi::class, 'detail_pembayaran_jamaah_id','id_detail_pembayaran_jamaah');
+    }
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\pendaftaran\JamaahPendaftaranController;
 use App\Http\Controllers\pendaftaran\PendaftaranController;
 use App\Http\Controllers\pengguna\AgenController;
 use App\Http\Controllers\pengguna\PenggunaController;
+use App\Http\Controllers\Transaksi\KeuanganTransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -115,6 +116,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tambah-rekening', [KeuanganRekeningController::class, 'store'])->name('tambah.rekening');
         Route::put('/update-rekening/{id}', [KeuanganRekeningController::class, 'update'])->name('update.rekening');
         Route::delete('/destroy-rekening/{id}', [KeuanganRekeningController::class, 'destroy'])->name('destroy.rekening');
+        
+        // TRANSAKSI
+        Route::get('/tentukan-rekening', [KeuanganTransaksiController::class, 'tentukan_rekening'])->name('tentukan.rekening');
+        Route::get('/kelola-transaksi', [KeuanganTransaksiController::class, 'index'])->name('kelola.transaksi');
+        Route::post('/store-transaksi', [KeuanganTransaksiController::class, 'store'])->name('tambah.transaksi');
+        Route::delete('/destroy-transaksi/{id}', [KeuanganTransaksiController::class, 'destroy'])->name('destroy.transaksi');
     });
 
 

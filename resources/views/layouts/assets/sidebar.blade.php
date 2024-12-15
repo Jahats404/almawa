@@ -114,11 +114,32 @@
         Rekening
     </div>
 
-    <!-- Nav Item - Pendaftaran -->
+    <!-- Nav Item - Rekening -->
     <li class="nav-item {{ Request::routeIs('keuangan.kelola.rekening') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('keuangan.kelola.rekening') }}">
             <i class="fas fa-fw fa-solid fa-funnel-dollar"></i>
             <span>Kelola Rekening</span></a>
+    </li>
+    <!-- Nav Item - Tentukan Rekening -->
+    <li class="nav-item {{ Request::routeIs('keuangan.tentukan.rekening') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keuangan.tentukan.rekening') }}">
+            <i class="fas fa-fw fa-solid fa-funnel-dollar"></i>
+            <span>Tentukan Rekening</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Transaksi
+    </div>
+
+    <!-- Nav Item - Transaksi -->
+    <li class="nav-item {{ Request::routeIs('keuangan.kelola.transaksi') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keuangan.kelola.transaksi') }}">
+            <i class="fas fa-regular fa-comments-dollar"></i>
+            <span>Kelola Transaksi</span></a>
     </li>
     @endif
 
