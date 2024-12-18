@@ -8,7 +8,7 @@
         {{-- @if ($cekStatus) --}}
             <!-- Tombol -->
             <a href="{{ route('jamaah.pendaftaran') }}" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-registered fa-sm text-white-50"></i> Daftarkan Diri Anda
+                <i class="fas fa-registered fa-sm text-white-50"></i> Daftar
             </a>
         {{-- @endif --}}
     </div>

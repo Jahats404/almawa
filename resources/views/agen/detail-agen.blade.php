@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <th>Tanggal Lahir</th>
-                                <td>{{ $agen->tanggal_lahir }}</td>
+                                <td>{{ \Carbon\Carbon::parse($agen->tanggal_lahir)->locale('id')->isoFormat('D MMMM YYYY') }}</td>
                             </tr>
                             <tr>
                                 <th>Jenis Kelamin</th>

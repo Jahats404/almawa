@@ -62,6 +62,25 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        <div class="btn-group mr-2">
+                                            <button type="button" title="Aksi" class="btn btn-info btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-solid fa-spinner"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <form action="{{ route('sa.ubah.status.agen', ['id' => $item->agen->no_registrasi]) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="status" value="Diterima">
+                                                    <button class="dropdown-item" type="submit">Terima</button>
+                                                </form>
+                                                <form action="{{ route('sa.ubah.status.agen', ['id' => $item->agen->no_registrasi]) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="status" value="Ditolak">
+                                                    <button class="dropdown-item" type="submit">Tolak</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\agen\PerjanjianController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\dashboard\DashboardController;
@@ -18,6 +19,9 @@ use App\Http\Controllers\pendaftaran\PendaftaranController;
 use App\Http\Controllers\pengguna\AgenController;
 use App\Http\Controllers\pengguna\PenggunaController;
 use App\Http\Controllers\Transaksi\KeuanganTransaksiController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use App\Models\Agen;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +53,11 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+// AJAX
+Route::post('/save-signature', [PerjanjianController::class, 'saveSignature'])->name('save.signature');
+
+View::share('ditolak', Auth::check() ? Agen::where('status', 'Ditolak')->where('user_id', Auth::id())->exists() : false);
+
 
 
 
@@ -74,6 +83,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete-agen/{id}', [SaAgenController::class, 'delete_agen'])->name('delete.agen');
         Route::get('/status-agen', [SaAgenController::class, 'status_agen'])->name('status.agen');
         Route::put('/ubah-status-agen/{id}', [SaAgenController::class, 'ubah_status_agen'])->name('ubah.status.agen');
+
+        // perjanjian agen
+        Route::get('/ttd', [PerjanjianController::class, 'ttd'])->name('ttd');
 
         //PENGGUNA JADWAL
         Route::get('/kelola-jadwal', [SaJadwalController::class, 'index'])->name('kelola.jadwal');
@@ -143,6 +155,8 @@ Route::middleware(['auth'])->group(function () {
     // ========= AGEN ===============
     Route::prefix('agen')->name('agen.')->middleware('CekUserLogin:5')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard_agen'])->name('dashboard');
+        Route::get('/surat-perjanjian', [PerjanjianController::class, 'generatePDF'])->name('perjanjian');
+        Route::get('/ttd', [PerjanjianController::class, 'ttd'])->name('ttd');
 
         // LENGKAPI DATA
         Route::get('/lengkapi-data', [AgenController::class, 'lengkapi_data'])->name('lengkapi.data');

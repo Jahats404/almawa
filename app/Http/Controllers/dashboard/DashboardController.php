@@ -21,6 +21,7 @@ class DashboardController extends Controller
     {
         $cek = Agen::where('user_id', Auth::user()->id)->first();
         $diajukan = Agen::where('status', 'Diajukan')->where('user_id', Auth::user()->id)->first();
+        // dd($diajukan);
         $diterima = Agen::where('status', 'Diterima')->where('user_id', Auth::user()->id)->first();
         $ditolak = Agen::where('status', 'Ditolak')->where('user_id', Auth::user()->id)->first();
         

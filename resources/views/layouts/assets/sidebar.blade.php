@@ -40,20 +40,21 @@
             <span>Kelola Paket</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Pengguna
-    </div>
-
-    <!-- Nav Item - Pengguna -->
     <li class="nav-item {{ Request::routeIs('sa.kelola.staff') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('sa.kelola.staff') }}">
             <i class="fas fa-regular fa-user"></i>
             <span>Daftar Staff</span></a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Agen
+    </div>
+
+    <!-- Nav Item - Agen -->
     <li class="nav-item {{ Request::routeIs('sa.kelola.agen') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('sa.kelola.agen') }}">
             <i class="fas fa-regular fa-user"></i>
@@ -268,72 +269,84 @@
 
     @if (Auth::user()->role_id == 5)
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ Request::routeIs('agen.dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('agen.dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+        <!-- Nav Item - Dashboard -->
+        @if ($ditolak)
+            <li class="nav-item {{ Request::routeIs('agen.dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.dashboard') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+        @else
+            <li class="nav-item {{ Request::routeIs('agen.dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.dashboard') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <li class="nav-item {{ Request::routeIs('agen.ttd') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.ttd') }}">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Surat Perjanjian</span></a>
+            </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Interface
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
             </div>
-        </div>
-    </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
-    </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>
 
-    @if ($diterima)
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
+            </li>
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Jamaah
-        </div>
+            @if ($diterima)
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item {{ Request::routeIs('agen.kelola.jamaah') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('agen.kelola.jamaah') }}">
-                <i class="fas fa-regular fa-user"></i>
-                <span>Daftar Jamaah</span></a>
-        </li>
-    @endif
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Jamaah
+                </div>
 
+                <li class="nav-item {{ Request::routeIs('agen.kelola.jamaah') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('agen.kelola.jamaah') }}">
+                        <i class="fas fa-regular fa-user"></i>
+                        <span>Daftar Jamaah</span></a>
+                </li>
+            @endif
+        @endif
     <!-- Nav Item - Pengguna -->
     {{-- <li class="nav-item {{ Request::routeIs('marketing.kelola.agen') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('marketing.kelola.agen') }}">

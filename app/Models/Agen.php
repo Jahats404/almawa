@@ -21,4 +21,8 @@ class Agen extends Model
     {
         return $this->belongsTo(User::class, 'supervisor_id');
     }
+    public function perjanjian()
+    {
+        return $this->hasOne(Perjanjian::class,'agen_id','no_registrasi');
+    }
 }
